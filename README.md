@@ -1,5 +1,6 @@
 CircularProgressBar
 =================
+[![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 
 This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.
 
