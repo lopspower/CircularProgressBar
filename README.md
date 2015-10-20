@@ -6,7 +6,7 @@ This is an Android project allowing to realize a circular ProgressBar in the sim
 Image Result
 -----
 
-![Capture Project](http://i61.tinypic.com/2n7mo44.png)
+![Capture Project](http://i59.tinypic.com/14sf53c.png)
 
 USAGE
 -----
