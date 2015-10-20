@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/first_circular_progressbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                app:progress="65" />
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/second_circular_progressbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                app:background_progressbar_color="#FFCDD2"
+                app:background_progressbar_width="5dp"
+                app:progressbar_color="#F44336"
+                app:progressbar_width="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/third_circular_progressbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                app:background_progressbar_color="#B2DFDB"
+                app:background_progressbar_width="20dp"
+                app:progressbar_color="#009688"
+                app:progressbar_width="30dp" />
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/fourth_circular_progressbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                app:background_progressbar_color="#FFF9C4"
+                app:background_progressbar_width="15dp"
+                app:progressbar_color="#FFEB3B"
+                app:progressbar_width="15dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonReload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimary"
+            android:text="RELOAD"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

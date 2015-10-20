@@ -1,0 +1,6 @@
+/local.properties
+/.gradle
+/build
+/.idea
+/CircleProgressBar.iml
+/gradle.properties
