@@ -37,9 +37,9 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 app:background_progressbar_color="#FFCDD2"
-                app:background_progressbar_width="5dp"
+                app:background_progressbar_width="10dp"
                 app:progressbar_color="#F44336"
-                app:progressbar_width="10dp" />
+                app:progressbar_width="20dp" />
 
         </LinearLayout>
 

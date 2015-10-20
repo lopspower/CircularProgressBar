@@ -18,8 +18,8 @@ public class CircularProgressBar extends View {
 
     // Properties
     private float progress = 0;
-    private float strokeWidth = 20;
-    private float backgroundStrokeWidth = 10;
+    private float strokeWidth = getResources().getDimension(R.dimen.default_stroke_width);
+    private float backgroundStrokeWidth = getResources().getDimension(R.dimen.default_background_stroke_width);
     private int color = Color.BLACK;
     private int backgroundColor = Color.GRAY;
 
@@ -97,22 +97,22 @@ public class CircularProgressBar extends View {
         invalidate();
     }
 
-    public float getStrokeWidth() {
+    public float getProgressBarWidth() {
         return strokeWidth;
     }
 
-    public void setStrokeWidth(float strokeWidth) {
+    public void setProgressBarWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
         foregroundPaint.setStrokeWidth(strokeWidth);
         invalidate();
         requestLayout();//Because it should recalculate its bounds
     }
 
-    public float getBackgroundStrokeWidth() {
+    public float getBackgroundProgressBarWidth() {
         return backgroundStrokeWidth;
     }
 
-    public void setBackgroundStrokeWidth(float backgroundStrokeWidth) {
+    public void setBackgroundProgressBarWidth(float backgroundStrokeWidth) {
         this.backgroundStrokeWidth = backgroundStrokeWidth;
         backgroundPaint.setStrokeWidth(strokeWidth);
         invalidate();
