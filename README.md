@@ -1,4 +1,4 @@
-CircularProgressBar
+CircularProgressBar - *New*
 =================
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 
