@@ -1,6 +1,7 @@
 CircularProgressBar - *New*
 =================
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
+[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularprogressbar.svg)](http://search.maven.org/#artifactdetails|com.mikhaellopez|circularprogressbar|1.0.0|)
 
 This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.
 
@@ -12,7 +13,11 @@ Image Result
 USAGE
 -----
 
-To make a circular ProgressBar add CircularProgressBar in your layout XML and add CircularProgressBar library in your project.
+To make a circular ProgressBar add CircularProgressBar in your layout XML and add CircularProgressBar library in your project or you can also grab it via Gradle:
+
+```groovy
+compile 'com.mikhaellopez:circularprogressbar:1.0.0'
+```
 
 XML
 -----
