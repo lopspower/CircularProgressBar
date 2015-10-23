@@ -23,7 +23,6 @@
             android:orientation="horizontal">
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/first_circular_progressbar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -80,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@color/colorPrimary"
-            android:text="RELOAD"
+            android:text="@string/btn_reload"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

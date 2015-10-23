@@ -3,4 +3,7 @@
     <!-- APP DEFAULT -->
     <string name="app_name">CircularProgressBar</string>
 
+    <!-- GENERAL -->
+    <string name="btn_reload">RELOAD</string>
+
 </resources>
