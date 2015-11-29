@@ -1,5 +1,6 @@
 CircularProgressBar - *New*
 =================
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CircularProgressBar-green.svg?style=flat)](https://android-arsenal.com/details/1/2845)
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 [![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularprogressbar.svg)](http://search.maven.org/#artifactdetails|com.mikhaellopez|circularprogressbar|1.0.0|)
 
