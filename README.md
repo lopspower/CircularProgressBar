@@ -1,9 +1,9 @@
 CircularProgressBar
 =================
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CircularProgressBar-green.svg?style=flat)](https://android-arsenal.com/details/1/2845)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CircularProgressBar-lightgrey.svg?style=flat)](https://android-arsenal.com/details/1/2845)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-11%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=11)
-[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularprogressbar.svg)](http://search.maven.org/#artifactdetails|com.mikhaellopez|circularprogressbar|1.0.0|)
+[![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/LopezMikhael)
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 
 This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.
