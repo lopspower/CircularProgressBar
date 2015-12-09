@@ -83,7 +83,8 @@ public class CircularProgressBar extends View {
         final int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
         final int min = Math.min(width, height);
         setMeasuredDimension(min, min);
-        rectF.set(0 + strokeWidth / 2, 0 + strokeWidth / 2, min - strokeWidth / 2, min - strokeWidth / 2);
+        float highStroke = (strokeWidth > backgroundStrokeWidth) ? strokeWidth : backgroundStrokeWidth;
+        rectF.set(0 + highStroke / 2, 0 + highStroke / 2, min - highStroke / 2, min - highStroke / 2);
     }
     //endregion
 
@@ -104,8 +105,8 @@ public class CircularProgressBar extends View {
     public void setProgressBarWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
         foregroundPaint.setStrokeWidth(strokeWidth);
-        invalidate();
         requestLayout();//Because it should recalculate its bounds
+        invalidate();
     }
 
     public float getBackgroundProgressBarWidth() {
@@ -114,9 +115,9 @@ public class CircularProgressBar extends View {
 
     public void setBackgroundProgressBarWidth(float backgroundStrokeWidth) {
         this.backgroundStrokeWidth = backgroundStrokeWidth;
-        backgroundPaint.setStrokeWidth(strokeWidth);
-        invalidate();
+        backgroundPaint.setStrokeWidth(backgroundStrokeWidth);
         requestLayout();//Because it should recalculate its bounds
+        invalidate();
     }
 
     public int getColor() {
