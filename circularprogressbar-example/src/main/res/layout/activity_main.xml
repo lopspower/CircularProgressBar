@@ -2,85 +2,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/circularProgressbar"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
+        app:background_progressbar_color="#b6bbd8"
+        app:background_progressbar_width="10dp"
+        app:progressbar_color="#3f51b5"
+        app:progressbar_width="20dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                app:progress="65" />
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/second_circular_progressbar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                app:background_progressbar_color="#FFCDD2"
-                app:background_progressbar_width="10dp"
-                app:progressbar_color="#F44336"
-                app:progressbar_width="20dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/third_circular_progressbar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                app:background_progressbar_color="#B2DFDB"
-                app:background_progressbar_width="20dp"
-                app:progressbar_color="#009688"
-                app:progressbar_width="30dp" />
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/fourth_circular_progressbar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                app:background_progressbar_color="#FFF9C4"
-                app:background_progressbar_width="15dp"
-                app:progressbar_color="#FFEB3B"
-                app:progressbar_width="15dp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonReload"
+        <SeekBar
+            android:id="@+id/seekBarProgress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
-            android:text="@string/btn_reload"
-            android:textColor="@android:color/white" />
+            android:layout_marginTop="5dp"
+            android:max="100"
+            android:progress="65"
+            android:progressDrawable="@drawable/scrubber_progress" />
+
+        <SeekBar
+            android:id="@+id/seekBarStrokeWidth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="70"
+            android:progress="20"
+            android:progressDrawable="@drawable/scrubber_progress" />
+
+        <SeekBar
+            android:id="@+id/seekBarBackgroundStrokeWidth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="70"
+            android:progress="10"
+            android:progressDrawable="@drawable/scrubber_progress" />
+
+        <com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
+            android:id="@+id/shadeslider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
 
     </LinearLayout>
 

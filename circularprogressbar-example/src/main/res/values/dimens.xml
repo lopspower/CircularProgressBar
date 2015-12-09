@@ -1,9 +1,0 @@
-<resources>
-
-    <!-- GENERAL -->
-    <dimen name="elevation">4dp</dimen>
-
-    <!-- TOOLBAR -->
-    <dimen name="toolbar_top_padding">0dp</dimen>
-
-</resources>

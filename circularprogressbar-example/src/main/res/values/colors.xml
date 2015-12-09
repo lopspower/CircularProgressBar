@@ -4,6 +4,6 @@
     <!-- APP DEFAULT -->
     <color name="colorPrimary">#424242</color>
     <color name="colorPrimaryDark">#212121</color>
-    <color name="colorAccent">#EEEEEE</color>
+    <color name="colorAccent">@color/colorPrimary</color>
 
 </resources>

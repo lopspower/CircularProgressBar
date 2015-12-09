@@ -1,57 +1,140 @@
 package com.mikhaellopez.circleprogressbarsample;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SeekBar;
 
+import com.larswerkman.lobsterpicker.OnColorListener;
+import com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CircularProgressBar secondCircularProgressBar;
-    private CircularProgressBar thirdCircularProgressBar;
-    private CircularProgressBar fourthCircularProgressBar;
+    private CircularProgressBar circularProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        // First init
-        initCircularProgressBar();
+        circularProgressBar = (CircularProgressBar) findViewById(R.id.circularProgressbar);
+        circularProgressBar.setProgressWithAnimation(65);
 
-        findViewById(R.id.buttonReload).setOnClickListener(new View.OnClickListener() {
+        // PROGRESS
+        ((SeekBar) findViewById(R.id.seekBarProgress)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View v) {
-                releaseCircularProgressBar();
-                initCircularProgressBar();
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                circularProgressBar.setProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        // BORDER
+        ((SeekBar) findViewById(R.id.seekBarStrokeWidth)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                circularProgressBar.setProgressBarWidth(progress * getResources().getDisplayMetrics().density);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        // BACKGROUND BORDER
+        ((SeekBar) findViewById(R.id.seekBarBackgroundStrokeWidth)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                circularProgressBar.setBackgroundProgressBarWidth(progress * getResources().getDisplayMetrics().density);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        // COLOR
+        ((LobsterShadeSlider) findViewById(R.id.shadeslider)).addOnColorListener(new OnColorListener() {
+            @Override
+            public void onColorChanged(@ColorInt int color) {
+                circularProgressBar.setColor(color);
+                circularProgressBar.setBackgroundColor(adjustAlpha(color, 0.3f));
+            }
+
+            @Override
+            public void onColorSelected(@ColorInt int color) {
             }
         });
     }
 
-    private void initCircularProgressBar() {
-        // FIRST
-        // Basic behavior
-
-        // SECOND
-        secondCircularProgressBar = (CircularProgressBar)findViewById(R.id.second_circular_progressbar);
-        secondCircularProgressBar.setProgressWithAnimation(65);
-
-        // THIRD
-        thirdCircularProgressBar = (CircularProgressBar)findViewById(R.id.third_circular_progressbar);
-        thirdCircularProgressBar.setProgressWithAnimation(85, 2500);
-
-        // FOURTH
-        fourthCircularProgressBar = (CircularProgressBar)findViewById(R.id.fourth_circular_progressbar);
-        fourthCircularProgressBar.setProgressWithAnimation(30, 1000);
+    /**
+     * Transparent the given color by the factor
+     * The more the factor closer to zero the more the color gets transparent
+     *
+     * @param color  The color to transparent
+     * @param factor 1.0f to 0.0f
+     * @return int - A transplanted color
+     */
+    private int adjustAlpha(int color, float factor) {
+        int alpha = Math.round(Color.alpha(color) * factor);
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+        return Color.argb(alpha, red, green, blue);
     }
 
-    private void releaseCircularProgressBar() {
-        secondCircularProgressBar.setProgress(0);
-        thirdCircularProgressBar.setProgress(0);
-        fourthCircularProgressBar.setProgress(0);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.github:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/lopspower/CircularProgressBar")));
+                return true;
+            case R.id.beer:
+                new AlertDialog.Builder(this)
+                        .setTitle(getResources().getString(R.string.pay_me_a_beer))
+                        .setMessage(getResources().getString(R.string.offer_me_a_beer))
+                        .setPositiveButton(getResources().getString(android.R.string.ok).toUpperCase(), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/LopezMikhael")));
+                            }
+                        })
+                        .setNegativeButton(getResources().getString(android.R.string.cancel).toUpperCase(), null)
+                        .show();
+                return true;
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
