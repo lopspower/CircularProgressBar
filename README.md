@@ -1,3 +1,5 @@
+<p align="center"><a target="_blank" href="https://play.google.com/store/apps/details?id=com.mikhaellopez.circleprogressbarsample" title="Download on Google Play Store"><img src="http://i64.tinypic.com/2ak9sox.png"></a></p>
+
 CircularProgressBar
 =================
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CircularProgressBar-lightgrey.svg?style=flat)](https://android-arsenal.com/details/1/2845)
@@ -8,10 +10,9 @@ CircularProgressBar
 
 This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.
 
-Image Result
------
-
-![Capture Project](http://cdn.makeagif.com/media/10-20-2015/ZuSOsQ.gif)
+<a target="_blank" href="https://play.google.com/store/apps/details?id=com.mikhaellopez.circleprogressbarsample">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
 
 USAGE
 -----
