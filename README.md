@@ -9,6 +9,8 @@ CircularProgressBar
 
 This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.
 
+<img src="/preview/preview.gif" alt="sample" title="sample" width="300" height="448" align="right" vspace="24" />
+
 USAGE
 -----
 
