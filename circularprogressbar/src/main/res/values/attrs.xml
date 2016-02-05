@@ -1,10 +1,10 @@
 <resources>
     <declare-styleable name="CircularProgressBar">
-        <attr name="progress" format="integer" />
-        <attr name="progressbar_color" format="color" />
-        <attr name="background_progressbar_color" format="color" />
-        <attr name="progressbar_width" format="dimension" />
-        <attr name="background_progressbar_width" format="dimension" />
+        <attr name="cpb_progress" format="integer" />
+        <attr name="cpb_progressbar_color" format="color" />
+        <attr name="cpb_background_progressbar_color" format="color" />
+        <attr name="cpb_progressbar_width" format="dimension" />
+        <attr name="cpb_background_progressbar_width" format="dimension" />
     </declare-styleable>
 
 </resources>
