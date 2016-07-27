@@ -1,6 +1,7 @@
 package com.mikhaellopez.circularprogressbar;
 
 import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -164,9 +165,22 @@ public class CircularProgressBar extends View {
      * @param duration The length of the animation, in milliseconds.
      */
     public void setProgressWithAnimation(float progress, int duration) {
+        setProgressWithAnimation(progress, duration, new DecelerateInterpolator());
+    }
+
+    /**
+     * Set the progress with an animation with an interpolator.
+     * Note that the {@link ObjectAnimator} Class automatically set the progress
+     * so don't call the {@link CircularProgressBar#setProgress(float)} directly within this method.
+     *
+     * @param progress     The progress it should animate to it.
+     * @param duration     The length of the animation, in milliseconds.
+     * @param interpolator The interpolator used for the animation.
+     */
+    public void setProgressWithAnimation(float progress, int duration, TimeInterpolator interpolator) {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "progress", progress);
         objectAnimator.setDuration(duration);
-        objectAnimator.setInterpolator(new DecelerateInterpolator());
+        objectAnimator.setInterpolator(interpolator);
         objectAnimator.start();
     }
     //endregion
