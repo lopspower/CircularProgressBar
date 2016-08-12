@@ -24,7 +24,7 @@ public class CircularProgressBar extends View {
     private int backgroundColor = Color.GRAY;
 
     // Object used to draw
-    private int startAngle = -90;
+    private int startAngle;
     private RectF rectF;
     private Paint backgroundPaint;
     private Paint foregroundPaint;
@@ -48,6 +48,7 @@ public class CircularProgressBar extends View {
             // Color
             color = typedArray.getInt(R.styleable.CircularProgressBar_cpb_progressbar_color, color);
             backgroundColor = typedArray.getInt(R.styleable.CircularProgressBar_cpb_background_progressbar_color, backgroundColor);
+            startAngle = typedArray.getInt(R.styleable.CircularProgressBar_cpb_start_angle, -90);
         } finally {
             typedArray.recycle();
         }
