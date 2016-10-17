@@ -29,6 +29,9 @@ public class CircularProgressBar extends View {
     private Paint backgroundPaint;
     private Paint foregroundPaint;
 
+    //progress change listener
+    private onProgressChangeListener mOnProgressChangeListener;
+
     //region Constructor & Init Method
     public CircularProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -96,6 +99,9 @@ public class CircularProgressBar extends View {
     public void setProgress(float progress) {
         this.progress = (progress<=100) ? progress : 100;
         invalidate();
+        if (mOnProgressChangeListener != null) {
+            mOnProgressChangeListener.onProgress(progress);
+        }
     }
 
     public float getProgressBarWidth() {
@@ -170,4 +176,12 @@ public class CircularProgressBar extends View {
         objectAnimator.start();
     }
     //endregion
+
+    public void setOnProgressChangeListener(onProgressChangeListener onProgressChangeListener) {
+        mOnProgressChangeListener = onProgressChangeListener;
+    }
+
+    public interface onProgressChangeListener {
+        void onProgress(float progress);
+    }
 }
