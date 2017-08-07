@@ -25,6 +25,7 @@ public class CircularProgressBar extends View {
 
     // Object used to draw
     private int startAngle = -90;
+    private int swipeAngle = 360;
     private RectF rectF;
     private Paint backgroundPaint;
     private Paint foregroundPaint;
@@ -48,6 +49,9 @@ public class CircularProgressBar extends View {
             // Color
             color = typedArray.getInt(R.styleable.CircularProgressBar_cpb_progressbar_color, color);
             backgroundColor = typedArray.getInt(R.styleable.CircularProgressBar_cpb_background_progressbar_color, backgroundColor);
+            // Start / Swipe angle
+            startAngle = typedArray.getInt(R.styleable.CircularProgressBar_cpb_start_angle, startAngle);
+            swipeAngle = typedArray.getInt(R.styleable.CircularProgressBar_cpb_swipe_angle, swipeAngle);
         } finally {
             typedArray.recycle();
         }
@@ -71,8 +75,7 @@ public class CircularProgressBar extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawOval(rectF, backgroundPaint);
-        float angle = 360 * progress / 100;
-        canvas.drawArc(rectF, startAngle, angle, false, foregroundPaint);
+        canvas.drawArc(rectF, startAngle, swipeAngle * progress / 100, false, foregroundPaint);
     }
     //endregion
 
