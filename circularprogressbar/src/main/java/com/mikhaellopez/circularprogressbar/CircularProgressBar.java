@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.animation.DecelerateInterpolator;
 
 /**
@@ -16,12 +17,22 @@ import android.view.animation.DecelerateInterpolator;
  */
 public class CircularProgressBar extends View {
 
+    public static final int CLOCK_WISE = 1;
+
+    public static final int COUNTER_CLOCK_WISE = -1;
+
     // Properties
     private float progress = 0;
     private float strokeWidth = getResources().getDimension(R.dimen.default_stroke_width);
     private float backgroundStrokeWidth = getResources().getDimension(R.dimen.default_background_stroke_width);
     private int color = Color.BLACK;
     private int backgroundColor = Color.GRAY;
+
+    @ViewDebug.ExportedProperty(category = "layout", mapping = {
+            @ViewDebug.IntToString(from = CLOCK_WISE, to = "CLOCK_WISE"),
+            @ViewDebug.IntToString(from = COUNTER_CLOCK_WISE, to = "COUNTER_CLOCK_WISE")
+    })
+    private int direction = CLOCK_WISE;
 
     // Object used to draw
     private int startAngle = -90;
@@ -48,6 +59,9 @@ public class CircularProgressBar extends View {
             // Color
             color = typedArray.getInt(R.styleable.CircularProgressBar_cpb_progressbar_color, color);
             backgroundColor = typedArray.getInt(R.styleable.CircularProgressBar_cpb_background_progressbar_color, backgroundColor);
+            // Direction
+            direction = typedArray.getLayoutDimension(R.styleable.CircularProgressBar_cpb_direction,
+                    direction);
         } finally {
             typedArray.recycle();
         }
@@ -71,7 +85,7 @@ public class CircularProgressBar extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawOval(rectF, backgroundPaint);
-        float angle = 360 * progress / 100;
+        float angle = direction * 360 * progress / 100;
         canvas.drawArc(rectF, startAngle, angle, false, foregroundPaint);
     }
     //endregion

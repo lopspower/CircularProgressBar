@@ -5,6 +5,10 @@
         <attr name="cpb_background_progressbar_color" format="color" />
         <attr name="cpb_progressbar_width" format="dimension" />
         <attr name="cpb_background_progressbar_width" format="dimension" />
+        <attr name="cpb_direction" format="integer">
+            <enum name="clock_wise" value="1" />
+            <enum name="counter_clock_wise" value="-1" />
+        </attr>
     </declare-styleable>
 
 </resources>
