@@ -36,7 +36,7 @@ XML
 You must use the following properties in your XML to change your CircularProgressBar.
 
 
-#####Properties:
+##### Properties:
 
 * `app:cpb_progress`                      (integer)   -> default 0
 * `app:cpb_progressbar_color`             (color)     -> default BLACK
