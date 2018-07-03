@@ -90,7 +90,7 @@ public class CircularProgressBar extends View {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         if (progressAnimator != null) progressAnimator.cancel();
-        if (indeterminateModeHandler != null) indeterminateModeHandler.removeCallbacks(null);
+        if (indeterminateModeHandler != null) indeterminateModeHandler.removeCallbacks(indeterminateModeRunnable);
     }
 
     //region Draw Method
