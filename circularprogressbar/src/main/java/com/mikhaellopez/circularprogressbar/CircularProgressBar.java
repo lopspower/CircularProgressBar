@@ -22,9 +22,8 @@ public class CircularProgressBar extends View {
     private float backgroundStrokeWidth = getResources().getDimension(R.dimen.default_background_stroke_width);
     private int color = Color.BLACK;
     private int backgroundColor = Color.GRAY;
+    private CircularProgressChangeListener listener;
 
-    // Object used to draw
-    private int startAngle = -90;
     private RectF rectF;
     private Paint backgroundPaint;
     private Paint foregroundPaint;
@@ -72,6 +71,7 @@ public class CircularProgressBar extends View {
         super.onDraw(canvas);
         canvas.drawOval(rectF, backgroundPaint);
         float angle = 360 * progress / 100;
+        int startAngle = -90;
         canvas.drawArc(rectF, startAngle, angle, false, foregroundPaint);
     }
     //endregion
@@ -95,6 +95,7 @@ public class CircularProgressBar extends View {
 
     public void setProgress(float progress) {
         this.progress = (progress<=100) ? progress : 100;
+        if (listener != null) listener.onProgressChanged(progress);
         invalidate();
     }
 
@@ -170,4 +171,15 @@ public class CircularProgressBar extends View {
         objectAnimator.start();
     }
     //endregion
+
+    //region Listener
+    public void setOnProgressChangedListener(CircularProgressChangeListener listener) {
+        this.listener = listener;
+    }
+
+    public interface CircularProgressChangeListener {
+        void onProgressChanged(float progress);
+    }
+    //endregion
+
 }

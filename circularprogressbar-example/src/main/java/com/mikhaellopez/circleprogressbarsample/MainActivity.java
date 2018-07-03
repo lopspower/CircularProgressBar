@@ -25,11 +25,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        circularProgressBar = (CircularProgressBar) findViewById(R.id.circularProgressbar);
+        circularProgressBar = findViewById(R.id.circularProgressbar);
         circularProgressBar.setProgressWithAnimation(65);
 
         // PROGRESS
-        ((SeekBar) findViewById(R.id.seekBarProgress)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        SeekBar seekBarProgress = findViewById(R.id.seekBarProgress);
+        seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 circularProgressBar.setProgress(progress);
