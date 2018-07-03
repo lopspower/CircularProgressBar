@@ -29,10 +29,10 @@ publishing {
     publications {
         MyPublication(MavenPublication) {
             groupId 'com.mikhaellopez'
-            artifactId 'circleprogressbarsample'
+            artifactId 'circularprogressbar'
             version androidVersionName
             artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/circleprogressbarsample-release.aar")
+            artifact("$buildDir/outputs/aar/circularprogressbar-release.aar")
         }
     }
 }
@@ -47,7 +47,7 @@ bintray {
     publications = ['MyPublication']
     pkg {
         repo = "maven"
-        name = "com.mikhaellopez:circularfillableloaders"
+        name = "com.mikhaellopez:circularprogressbar"
         desc = 'This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/lopspower/CircularProgressBar.git'

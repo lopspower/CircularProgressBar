@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion androidCompileSdkVersion
     defaultConfig {
-        applicationId "com.mikhaellopez.circleprogressbarsample"
+        applicationId "com.mikhaellopez.circularprogressbarsample"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1
@@ -18,8 +18,8 @@ android {
 }
 
 dependencies {
-    implementation project(':circularprogressbar')
-    //implementation 'com.mikhaellopez:circularprogressbar:$androidVersionName'
+    //implementation project(':circularprogressbar')
+    implementation "com.mikhaellopez:circularprogressbar:$androidVersionName"
     implementation appCompat
     implementation lobsterPicker
 }

@@ -1,4 +1,4 @@
-package com.mikhaellopez.circleprogressbarsample;
+package com.mikhaellopez.circularprogressbarsample;
 
 import android.content.DialogInterface;
 import android.content.Intent;
