@@ -19,7 +19,7 @@ android {
 
 dependencies {
     implementation project(':circularprogressbar')
-    //implementation 'com.mikhaellopez:circularprogressbar:1.1.1'
+    //implementation 'com.mikhaellopez:circularprogressbar:$androidVersionName'
     implementation appCompat
     implementation lobsterPicker
 }
