@@ -15,8 +15,11 @@ import android.view.View;
  */
 public class CircularProgressBar extends View {
 
+    private static final float DEFAULT_MAX_VALUE = 100;
+
     // Properties
     private float progress = 0;
+    private float progressMax = DEFAULT_MAX_VALUE;
     private float strokeWidth = getResources().getDimension(R.dimen.default_stroke_width);
     private float backgroundStrokeWidth = getResources().getDimension(R.dimen.default_background_stroke_width);
     private int color = Color.BLACK;
@@ -42,6 +45,7 @@ public class CircularProgressBar extends View {
         try {
             // Value
             progress = typedArray.getFloat(R.styleable.CircularProgressBar_cpb_progress, progress);
+            progressMax = typedArray.getFloat(R.styleable.CircularProgressBar_cpb_progress_max, progressMax);
             // StrokeWidth
             strokeWidth = typedArray.getDimension(R.styleable.CircularProgressBar_cpb_progressbar_width, strokeWidth);
             backgroundStrokeWidth = typedArray.getDimension(R.styleable.CircularProgressBar_cpb_background_progressbar_width, backgroundStrokeWidth);
@@ -79,7 +83,8 @@ public class CircularProgressBar extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawOval(rectF, backgroundPaint);
-        float angle = 360 * progress / 100;
+        float realProgress = progress * DEFAULT_MAX_VALUE / progressMax;
+        float angle = 360 * realProgress / 100;
         int startAngle = -90;
         canvas.drawArc(rectF, startAngle, angle, false, foregroundPaint);
     }
@@ -92,7 +97,7 @@ public class CircularProgressBar extends View {
         final int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
         final int min = Math.min(width, height);
         setMeasuredDimension(min, min);
-        float highStroke = (strokeWidth > backgroundStrokeWidth) ? strokeWidth : backgroundStrokeWidth;
+        float highStroke = strokeWidth > backgroundStrokeWidth ? strokeWidth : backgroundStrokeWidth;
         rectF.set(0 + highStroke / 2, 0 + highStroke / 2, min - highStroke / 2, min - highStroke / 2);
     }
     //endregion
@@ -110,9 +115,18 @@ public class CircularProgressBar extends View {
         if (!fromAnimation && animator != null) {
             animator.cancel();
         }
-        this.progress = (progress <= 100) ? progress : 100;
+        this.progress = progress <= progressMax ? progress : progressMax;
         if (listener != null) listener.onProgressChanged(progress);
         invalidate();
+    }
+
+    public float getProgressMax() {
+        return progressMax;
+    }
+
+    public void setProgressMax(float progressMax) {
+        this.progressMax = progressMax >= 0 ? progressMax : DEFAULT_MAX_VALUE;
+        reDraw();
     }
 
     public float getProgressBarWidth() {
@@ -122,8 +136,7 @@ public class CircularProgressBar extends View {
     public void setProgressBarWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
         foregroundPaint.setStrokeWidth(strokeWidth);
-        requestLayout();//Because it should recalculate its bounds
-        invalidate();
+        reDraw();
     }
 
     public float getBackgroundProgressBarWidth() {
@@ -133,8 +146,7 @@ public class CircularProgressBar extends View {
     public void setBackgroundProgressBarWidth(float backgroundStrokeWidth) {
         this.backgroundStrokeWidth = backgroundStrokeWidth;
         backgroundPaint.setStrokeWidth(backgroundStrokeWidth);
-        requestLayout();//Because it should recalculate its bounds
-        invalidate();
+        reDraw();
     }
 
     public int getColor() {
@@ -144,8 +156,7 @@ public class CircularProgressBar extends View {
     public void setColor(int color) {
         this.color = color;
         foregroundPaint.setColor(color);
-        invalidate();
-        requestLayout();
+        reDraw();
     }
 
     public int getBackgroundColor() {
@@ -155,8 +166,12 @@ public class CircularProgressBar extends View {
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
         backgroundPaint.setColor(backgroundColor);
+        reDraw();
+    }
+
+    private void reDraw() {
+        requestLayout();//Because it should recalculate its bounds
         invalidate();
-        requestLayout();
     }
     //endregion
 
@@ -181,7 +196,6 @@ public class CircularProgressBar extends View {
         if (animator != null) {
             animator.cancel();
         }
-
         animator = ValueAnimator.ofFloat(this.progress, progress);
         animator.setDuration(duration);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -191,8 +205,6 @@ public class CircularProgressBar extends View {
             }
         });
         animator.start();
-
-
     }
     //endregion
 
