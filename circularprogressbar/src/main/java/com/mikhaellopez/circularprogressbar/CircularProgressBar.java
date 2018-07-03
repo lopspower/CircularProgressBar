@@ -22,7 +22,9 @@ public class CircularProgressBar extends View {
     private int color = Color.BLACK;
     private int backgroundColor = Color.GRAY;
     private CircularProgressChangeListener listener;
+    private ValueAnimator animator;
 
+    // View
     private RectF rectF;
     private Paint backgroundPaint;
     private Paint foregroundPaint;
@@ -64,6 +66,14 @@ public class CircularProgressBar extends View {
     }
     //endregion
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (animator != null) {
+            animator.cancel();
+        }
+    }
+
     //region Draw Method
     @Override
     protected void onDraw(Canvas canvas) {
@@ -93,7 +103,14 @@ public class CircularProgressBar extends View {
     }
 
     public void setProgress(float progress) {
-        this.progress = (progress<=100) ? progress : 100;
+        setProgress(progress, false);
+    }
+
+    private void setProgress(float progress, boolean fromAnimation) {
+        if (!fromAnimation && animator != null) {
+            animator.cancel();
+        }
+        this.progress = (progress <= 100) ? progress : 100;
         if (listener != null) listener.onProgressChanged(progress);
         invalidate();
     }
@@ -143,9 +160,11 @@ public class CircularProgressBar extends View {
     }
     //endregion
 
-    //region Other Method
+    //region Progress Animation
+
     /**
-     * Set the progress with an animation.
+     * Set the progress with an animation with 1500 by default duration.
+     *
      * @param progress The progress it should animate to it.
      */
     public void setProgressWithAnimation(float progress) {
@@ -154,19 +173,26 @@ public class CircularProgressBar extends View {
 
     /**
      * Set the progress with an animation.
+     *
      * @param progress The progress it should animate to it.
      * @param duration The length of the animation, in milliseconds.
      */
     public void setProgressWithAnimation(float progress, int duration) {
-        ValueAnimator animator = ValueAnimator.ofFloat(this.progress, progress);
+        if (animator != null) {
+            animator.cancel();
+        }
+
+        animator = ValueAnimator.ofFloat(this.progress, progress);
         animator.setDuration(duration);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                setProgress((Float) animation.getAnimatedValue());
+                setProgress((Float) animation.getAnimatedValue(), true);
             }
         });
         animator.start();
+
+
     }
     //endregion
 
