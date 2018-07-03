@@ -1,6 +1,6 @@
 package com.mikhaellopez.circularprogressbar;
 
-import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 
 /**
  * Created by Mikhael LOPEZ on 16/10/2015.
@@ -147,9 +146,6 @@ public class CircularProgressBar extends View {
     //region Other Method
     /**
      * Set the progress with an animation.
-     * Note that the {@link ObjectAnimator} Class automatically set the progress
-     * so don't call the {@link CircularProgressBar#setProgress(float)} directly within this method.
-     *
      * @param progress The progress it should animate to it.
      */
     public void setProgressWithAnimation(float progress) {
@@ -158,17 +154,19 @@ public class CircularProgressBar extends View {
 
     /**
      * Set the progress with an animation.
-     * Note that the {@link ObjectAnimator} Class automatically set the progress
-     * so don't call the {@link CircularProgressBar#setProgress(float)} directly within this method.
-     *
      * @param progress The progress it should animate to it.
      * @param duration The length of the animation, in milliseconds.
      */
     public void setProgressWithAnimation(float progress, int duration) {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "progress", progress);
-        objectAnimator.setDuration(duration);
-        objectAnimator.setInterpolator(new DecelerateInterpolator());
-        objectAnimator.start();
+        ValueAnimator animator = ValueAnimator.ofFloat(this.progress, progress);
+        animator.setDuration(duration);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setProgress((Float) animation.getAnimatedValue());
+            }
+        });
+        animator.start();
     }
     //endregion
 
