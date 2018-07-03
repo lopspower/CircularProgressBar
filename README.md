@@ -39,6 +39,7 @@ You must use the following properties in your XML to change your CircularProgres
 ##### Properties:
 
 * `app:cpb_progress`                      (integer)   -> default 0
+* `app:cpb_progress_max`                  (integer)   -> default 100
 * `app:cpb_progressbar_color`             (color)     -> default BLACK
 * `app:cpb_background_progressbar_color`  (color)     -> default GRAY
 * `app:cpb_progressbar_width`             (dimension) -> default 7dp
