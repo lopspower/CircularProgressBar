@@ -30,22 +30,6 @@ public class MainActivity extends AppCompatActivity {
         circularProgressBar = findViewById(R.id.circularProgressbar);
         circularProgressBar.setProgressWithAnimation(65);
 
-        // INDETERMINATE MODE
-        final Switch switchIndeterminateMode = findViewById(R.id.switchIndeterminateMode);
-        switchIndeterminateMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                circularProgressBar.enableIndeterminateMode(isChecked);
-
-            }
-        });
-        circularProgressBar.setOnIndeterminateModeChangeListener(new CircularProgressBar.IndeterminateModeChangeListener() {
-            @Override
-            public void onModeChange(boolean isEnable) {
-                switchIndeterminateMode.setChecked(isEnable);
-            }
-        });
-
         // PROGRESS
         SeekBar seekBarProgress = findViewById(R.id.seekBarProgress);
         seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -105,6 +89,21 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onColorSelected(@ColorInt int color) {
+            }
+        });
+
+        // INDETERMINATE MODE
+        final Switch switchIndeterminateMode = findViewById(R.id.switchIndeterminateMode);
+        switchIndeterminateMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                circularProgressBar.enableIndeterminateMode(isChecked);
+            }
+        });
+        circularProgressBar.setOnIndeterminateModeChangeListener(new CircularProgressBar.IndeterminateModeChangeListener() {
+            @Override
+            public void onModeChange(boolean isEnable) {
+                switchIndeterminateMode.setChecked(isEnable);
             }
         });
     }

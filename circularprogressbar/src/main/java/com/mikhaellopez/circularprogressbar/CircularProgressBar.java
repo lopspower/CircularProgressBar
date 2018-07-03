@@ -54,6 +54,8 @@ public class CircularProgressBar extends View {
             // Value
             progress = typedArray.getFloat(R.styleable.CircularProgressBar_cpb_progress, progress);
             progressMax = typedArray.getFloat(R.styleable.CircularProgressBar_cpb_progress_max, progressMax);
+            // Indeterminate Mode
+            indeterminateMode = typedArray.getBoolean(R.styleable.CircularProgressBar_cpb_indeterminate_mode, indeterminateMode);
             // StrokeWidth
             strokeWidth = typedArray.getDimension(R.styleable.CircularProgressBar_cpb_progressbar_width, strokeWidth);
             backgroundStrokeWidth = typedArray.getDimension(R.styleable.CircularProgressBar_cpb_background_progressbar_width, backgroundStrokeWidth);
@@ -79,11 +81,16 @@ public class CircularProgressBar extends View {
     //endregion
 
     @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        if (indeterminateMode) enableIndeterminateMode(true);
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         if (progressAnimator != null) progressAnimator.cancel();
         if (indeterminateModeHandler != null) indeterminateModeHandler.removeCallbacks(null);
-
     }
 
     //region Draw Method
@@ -244,13 +251,15 @@ public class CircularProgressBar extends View {
         rightToLeft = true;
         startAngle = DEFAULT_START_ANGLE;
 
-        if (indeterminateModeHandler != null)
-            indeterminateModeHandler.removeCallbacks(null);
+        if (indeterminateModeHandler != null) indeterminateModeHandler.removeCallbacks(indeterminateModeRunnable);
+        if (progressAnimator != null) progressAnimator.cancel();
         indeterminateModeHandler = new Handler();
 
-        if (indeterminateMode)
+        if (indeterminateMode) {
             indeterminateModeHandler.post(indeterminateModeRunnable);
-        else reDraw();
+        } else {
+            setProgress(0, true);
+        }
     }
     //endregion
 
