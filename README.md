@@ -17,7 +17,7 @@ USAGE
 To make a circular ProgressBar add CircularProgressBar in your layout XML and add CircularProgressBar library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularprogressbar:1.1.1'
+implementation 'com.mikhaellopez:circularprogressbar:2.0.0'
 ```
 
 XML
@@ -40,6 +40,7 @@ You must use the following properties in your XML to change your CircularProgres
 
 * `app:cpb_progress`                      (integer)   -> default 0
 * `app:cpb_progress_max`                  (integer)   -> default 100
+* `app:cpb_indeterminate_mode`            (boolean)   -> default false
 * `app:cpb_progressbar_color`             (color)     -> default BLACK
 * `app:cpb_background_progressbar_color`  (color)     -> default GRAY
 * `app:cpb_progressbar_width`             (dimension) -> default 7dp
