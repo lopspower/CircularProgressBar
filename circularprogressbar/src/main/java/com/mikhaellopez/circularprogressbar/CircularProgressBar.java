@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -16,6 +17,8 @@ import android.view.View;
 public class CircularProgressBar extends View {
 
     private static final float DEFAULT_MAX_VALUE = 100;
+    private static final float DEFAULT_START_ANGLE = 270;
+    private static final int DEFAULT_ANIMATION_DURATION = 1500;
 
     // Properties
     private float progress = 0;
@@ -24,8 +27,13 @@ public class CircularProgressBar extends View {
     private float backgroundStrokeWidth = getResources().getDimension(R.dimen.default_background_stroke_width);
     private int color = Color.BLACK;
     private int backgroundColor = Color.GRAY;
-    private CircularProgressChangeListener listener;
-    private ValueAnimator animator;
+    private boolean rightToLeft = true;
+    private boolean indeterminateMode = false;
+    private float startAngle = DEFAULT_START_ANGLE;
+    private ProgressChangeListener progressChangeListener;
+    private IndeterminateModeChangeListener indeterminateModeChangeListener;
+    private ValueAnimator progressAnimator;
+    private Handler indeterminateModeHandler;
 
     // View
     private RectF rectF;
@@ -73,9 +81,9 @@ public class CircularProgressBar extends View {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (animator != null) {
-            animator.cancel();
-        }
+        if (progressAnimator != null) progressAnimator.cancel();
+        if (indeterminateModeHandler != null) indeterminateModeHandler.removeCallbacks(null);
+
     }
 
     //region Draw Method
@@ -84,9 +92,13 @@ public class CircularProgressBar extends View {
         super.onDraw(canvas);
         canvas.drawOval(rectF, backgroundPaint);
         float realProgress = progress * DEFAULT_MAX_VALUE / progressMax;
-        float angle = 360 * realProgress / 100;
-        int startAngle = -90;
+        float angle = (rightToLeft ? 360 : -360) * realProgress / 100;
         canvas.drawArc(rectF, startAngle, angle, false, foregroundPaint);
+    }
+
+    private void reDraw() {
+        requestLayout();//Because it should recalculate its bounds
+        invalidate();
     }
     //endregion
 
@@ -112,11 +124,12 @@ public class CircularProgressBar extends View {
     }
 
     private void setProgress(float progress, boolean fromAnimation) {
-        if (!fromAnimation && animator != null) {
-            animator.cancel();
+        if (!fromAnimation && progressAnimator != null) {
+            progressAnimator.cancel();
+            if (indeterminateMode) enableIndeterminateMode(false);
         }
         this.progress = progress <= progressMax ? progress : progressMax;
-        if (listener != null) listener.onProgressChanged(progress);
+        if (progressChangeListener != null) progressChangeListener.onProgressChanged(progress);
         invalidate();
     }
 
@@ -168,11 +181,6 @@ public class CircularProgressBar extends View {
         backgroundPaint.setColor(backgroundColor);
         reDraw();
     }
-
-    private void reDraw() {
-        requestLayout();//Because it should recalculate its bounds
-        invalidate();
-    }
     //endregion
 
     //region Progress Animation
@@ -183,7 +191,7 @@ public class CircularProgressBar extends View {
      * @param progress The progress it should animate to it.
      */
     public void setProgressWithAnimation(float progress) {
-        setProgressWithAnimation(progress, 1500);
+        setProgressWithAnimation(progress, DEFAULT_ANIMATION_DURATION);
     }
 
     /**
@@ -193,28 +201,74 @@ public class CircularProgressBar extends View {
      * @param duration The length of the animation, in milliseconds.
      */
     public void setProgressWithAnimation(float progress, int duration) {
-        if (animator != null) {
-            animator.cancel();
+        if (progressAnimator != null) {
+            progressAnimator.cancel();
         }
-        animator = ValueAnimator.ofFloat(this.progress, progress);
-        animator.setDuration(duration);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        progressAnimator = ValueAnimator.ofFloat(this.progress, progress);
+        progressAnimator.setDuration(duration);
+        progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                setProgress((Float) animation.getAnimatedValue(), true);
+                float progress = (Float) animation.getAnimatedValue();
+                setProgress(progress, true);
+                if (indeterminateMode) {
+                    float updateAngle = progress * 360 / 100;
+                    startAngle = DEFAULT_START_ANGLE + (rightToLeft ? updateAngle : -updateAngle);
+                }
             }
         });
-        animator.start();
+        progressAnimator.start();
+    }
+    //endregion
+
+    //region Indeterminate Mode
+    private Runnable indeterminateModeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (indeterminateMode) {
+                indeterminateModeHandler.postDelayed(indeterminateModeRunnable, DEFAULT_ANIMATION_DURATION);
+                // whatever you want to do below
+                CircularProgressBar.this.rightToLeft = !CircularProgressBar.this.rightToLeft;
+                if (CircularProgressBar.this.rightToLeft) {
+                    setProgressWithAnimation(0);
+                } else {
+                    setProgressWithAnimation(progressMax);
+                }
+            }
+        }
+    };
+
+    public void enableIndeterminateMode(boolean enable) {
+        indeterminateMode = enable;
+        if (indeterminateModeChangeListener != null) indeterminateModeChangeListener.onModeChange(indeterminateMode);
+        rightToLeft = true;
+        startAngle = DEFAULT_START_ANGLE;
+
+        if (indeterminateModeHandler != null)
+            indeterminateModeHandler.removeCallbacks(null);
+        indeterminateModeHandler = new Handler();
+
+        if (indeterminateMode)
+            indeterminateModeHandler.post(indeterminateModeRunnable);
+        else reDraw();
     }
     //endregion
 
     //region Listener
-    public void setOnProgressChangedListener(CircularProgressChangeListener listener) {
-        this.listener = listener;
+    public void setOnProgressChangedListener(ProgressChangeListener listener) {
+        progressChangeListener = listener;
     }
 
-    public interface CircularProgressChangeListener {
+    public void setOnIndeterminateModeChangeListener(IndeterminateModeChangeListener listener) {
+        indeterminateModeChangeListener = listener;
+    }
+
+    public interface ProgressChangeListener {
         void onProgressChanged(float progress);
+    }
+
+    public interface IndeterminateModeChangeListener {
+        void onModeChange(boolean isEnable);
     }
     //endregion
 

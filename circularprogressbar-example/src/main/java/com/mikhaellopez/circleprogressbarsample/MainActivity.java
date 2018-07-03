@@ -10,7 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 import com.larswerkman.lobsterpicker.OnColorListener;
 import com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider;
@@ -27,6 +29,22 @@ public class MainActivity extends AppCompatActivity {
 
         circularProgressBar = findViewById(R.id.circularProgressbar);
         circularProgressBar.setProgressWithAnimation(65);
+
+        // INDETERMINATE MODE
+        final Switch switchIndeterminateMode = findViewById(R.id.switchIndeterminateMode);
+        switchIndeterminateMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                circularProgressBar.enableIndeterminateMode(isChecked);
+
+            }
+        });
+        circularProgressBar.setOnIndeterminateModeChangeListener(new CircularProgressBar.IndeterminateModeChangeListener() {
+            @Override
+            public void onModeChange(boolean isEnable) {
+                switchIndeterminateMode.setChecked(isEnable);
+            }
+        });
 
         // PROGRESS
         SeekBar seekBarProgress = findViewById(R.id.seekBarProgress);
