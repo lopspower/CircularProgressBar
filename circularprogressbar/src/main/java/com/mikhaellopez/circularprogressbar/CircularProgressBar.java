@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Copyright (C) 2016 Mikhael LOPEZ
+ * Copyright (C) 2018 Mikhael LOPEZ
  * Licensed under the Apache License Version 2.0
  */
 public class CircularProgressBar extends View {
