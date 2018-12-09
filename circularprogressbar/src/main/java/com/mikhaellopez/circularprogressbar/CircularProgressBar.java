@@ -61,8 +61,8 @@ public class CircularProgressBar extends View {
             strokeWidth = typedArray.getDimension(R.styleable.CircularProgressBar_cpb_progressbar_width, strokeWidth);
             backgroundStrokeWidth = typedArray.getDimension(R.styleable.CircularProgressBar_cpb_background_progressbar_width, backgroundStrokeWidth);
             // Color
-            color = typedArray.getInt(R.styleable.CircularProgressBar_cpb_progressbar_color, color);
-            backgroundColor = typedArray.getInt(R.styleable.CircularProgressBar_cpb_background_progressbar_color, backgroundColor);
+            color = typedArray.getColor(R.styleable.CircularProgressBar_cpb_progressbar_color, color);
+            backgroundColor = typedArray.getColor(R.styleable.CircularProgressBar_cpb_background_progressbar_color, backgroundColor);
         } finally {
             typedArray.recycle();
         }
