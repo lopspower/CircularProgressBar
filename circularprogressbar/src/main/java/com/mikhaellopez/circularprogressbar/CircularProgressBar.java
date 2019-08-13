@@ -110,7 +110,7 @@ public class CircularProgressBar extends View {
     }
     //endregion
 
-    //region Mesure Method
+    //region Measure Method
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);

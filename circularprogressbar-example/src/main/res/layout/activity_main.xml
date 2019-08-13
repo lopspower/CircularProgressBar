@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/circularProgressbar"
+            android:id="@+id/circularProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cpb_background_progressbar_color="#b6bbd8"
@@ -38,8 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
-            android:progress="65"
-            android:progressDrawable="@drawable/scrubber_progress" />
+            android:progress="65" />
 
         <SeekBar
             android:id="@+id/seekBarStrokeWidth"
@@ -47,8 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:max="70"
-            android:progress="20"
-            android:progressDrawable="@drawable/scrubber_progress" />
+            android:progress="20" />
 
         <SeekBar
             android:id="@+id/seekBarBackgroundStrokeWidth"
@@ -56,8 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:max="70"
-            android:progress="10"
-            android:progressDrawable="@drawable/scrubber_progress" />
+            android:progress="10" />
 
         <com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
             android:id="@+id/shadeslider"
