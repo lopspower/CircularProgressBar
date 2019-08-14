@@ -17,13 +17,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        circularProgressBar.setProgressWithAnimation(65f)
+        circularProgressBar.setProgressWithAnimation(100f)
         seekBarProgress.onProgressChanged { circularProgressBar.progress = it }
         seekBarStartAngle.onProgressChanged { circularProgressBar.startAngle = it }
         seekBarStrokeWidth.onProgressChanged { circularProgressBar.progressBarWidth = it }
         seekBarBackgroundStrokeWidth.onProgressChanged { circularProgressBar.backgroundProgressBarWidth = it }
         shadeslider.onColorChanged {
-            circularProgressBar.color = it
+            circularProgressBar.progressBarColor = it
             circularProgressBar.backgroundProgressBarColor = adjustAlpha(it, 0.3f)
         }
         switchRoundBorder.onCheckedChange { circularProgressBar.roundBorder = it }
@@ -73,12 +73,12 @@ class MainActivity : AppCompatActivity() {
     //endregion
 
     /**
-     * Transparent the given color by the factor
-     * The more the factor closer to zero the more the color gets transparent
+     * Transparent the given progressBarColor by the factor
+     * The more the factor closer to zero the more the progressBarColor gets transparent
      *
-     * @param color  The color to transparent
+     * @param color  The progressBarColor to transparent
      * @param factor 1.0f to 0.0f
-     * @return int - A transplanted color
+     * @return int - A transplanted progressBarColor
      */
     private fun adjustAlpha(color: Int, factor: Float): Int {
         val alpha = (Color.alpha(color) * factor).roundToInt()
