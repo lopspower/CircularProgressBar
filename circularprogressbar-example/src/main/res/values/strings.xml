@@ -5,5 +5,8 @@
 
     <!-- OTHER -->
     <string name="indeterminate_mode">Indeterminate mode</string>
+    <string name="round_border">Round border</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
 
 </resources>

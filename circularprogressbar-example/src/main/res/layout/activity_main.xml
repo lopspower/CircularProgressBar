@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             app:cpb_background_progressbar_color="#b6bbd8"
             app:cpb_background_progressbar_width="10dp"
+            app:cpb_progress="30"
+            app:cpb_progress_direction="to_right"
             app:cpb_progressbar_color="#3f51b5"
-            app:cpb_progressbar_width="20dp"
-            app:cpb_round_border="true" />
+            app:cpb_progressbar_width="20dp" />
 
     </LinearLayout>
 
@@ -40,6 +41,14 @@
             android:layout_height="wrap_content"
             android:max="100"
             android:progress="65" />
+
+        <SeekBar
+            android:id="@+id/seekBarStartAngle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:max="360"
+            android:progress="0" />
 
         <SeekBar
             android:id="@+id/seekBarStrokeWidth"
@@ -86,6 +95,72 @@
                 android:id="@+id/switchIndeterminateMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="@string/round_border"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Switch
+                android:id="@+id/switchRoundBorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="@string/left"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Switch
+                android:id="@+id/switchProgressDirection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/right"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

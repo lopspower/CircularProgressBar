@@ -3,9 +3,11 @@ package com.mikhaellopez.circularprogressbarsample
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.SeekBar
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import com.larswerkman.lobsterpicker.OnColorListener
 import com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.roundToInt
 
@@ -16,24 +18,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         circularProgressBar.setProgressWithAnimation(65f)
-        seekBarProgress.onProgressChanged { progress, fromUser -> if(fromUser) circularProgressBar.progress = progress }
-        seekBarStrokeWidth.onProgressChanged { value, _ -> circularProgressBar.progressBarWidth = value }
-        seekBarBackgroundStrokeWidth.onProgressChanged { value, _ -> circularProgressBar.backgroundProgressBarWidth = value }
+        seekBarProgress.onProgressChanged { circularProgressBar.progress = it }
+        seekBarStartAngle.onProgressChanged { circularProgressBar.startAngle = it }
+        seekBarStrokeWidth.onProgressChanged { circularProgressBar.progressBarWidth = it }
+        seekBarBackgroundStrokeWidth.onProgressChanged { circularProgressBar.backgroundProgressBarWidth = it }
         shadeslider.onColorChanged {
             circularProgressBar.color = it
             circularProgressBar.backgroundProgressBarColor = adjustAlpha(it, 0.3f)
         }
+        switchRoundBorder.onCheckedChange { circularProgressBar.roundBorder = it }
+        switchProgressDirection.onCheckedChange {
+            circularProgressBar.progressDirection =
+                    if (it) CircularProgressBar.ProgressDirection.TO_RIGHT
+                    else CircularProgressBar.ProgressDirection.TO_LEFT
+        }
 
         // INDETERMINATE MODE
-        switchIndeterminateMode.setOnCheckedChangeListener { _, isChecked -> circularProgressBar.indeterminateMode = isChecked }
+        switchIndeterminateMode.onCheckedChange { circularProgressBar.indeterminateMode = it }
         circularProgressBar.onIndeterminateModeChangeListener = { switchIndeterminateMode.isChecked = it }
     }
 
     //region Extensions
-    private fun SeekBar.onProgressChanged(onProgressChanged: (Float, Boolean) -> Unit) {
+    private fun SeekBar.onProgressChanged(onProgressChanged: (Float) -> Unit) {
         setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                onProgressChanged(progress.toFloat(), fromUser)
+                onProgressChanged(progress.toFloat())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -56,6 +65,10 @@ class MainActivity : AppCompatActivity() {
                 // Nothing
             }
         })
+    }
+
+    private fun Switch.onCheckedChange(onCheckedChange: (Boolean) -> Unit) {
+        this.setOnCheckedChangeListener { _, isChecked -> onCheckedChange(isChecked) }
     }
     //endregion
 

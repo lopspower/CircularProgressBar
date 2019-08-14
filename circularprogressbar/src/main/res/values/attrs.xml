@@ -8,5 +8,10 @@
         <attr name="cpb_progressbar_width" format="dimension" />
         <attr name="cpb_background_progressbar_width" format="dimension" />
         <attr name="cpb_round_border" format="boolean" />
+        <attr name="cpb_start_angle" format="float" />
+        <attr name="cpb_progress_direction">
+            <flag name="to_right" value="1" />
+            <flag name="to_left" value="2" />
+        </attr>
     </declare-styleable>
 </resources>

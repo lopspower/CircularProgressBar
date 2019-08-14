@@ -25,8 +25,6 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
     }
 
     // Properties
-    private var rightToLeft = true
-    private var startAngle = DEFAULT_START_ANGLE
     private var progressAnimator: ValueAnimator? = null
     private var indeterminateModeHandler: Handler? = null
 
@@ -85,16 +83,36 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
             invalidate()
         }
 
+    var roundBorder = false
+        set(value) {
+            field = value
+            foregroundPaint.strokeCap = if (field) Paint.Cap.ROUND else Paint.Cap.BUTT
+            invalidate()
+        }
+
+    var startAngle: Float = DEFAULT_START_ANGLE
+        set(value) {
+            var angle = value + DEFAULT_START_ANGLE
+            while (angle > 360) {
+                angle -= 360
+            }
+            field = if (angle < 0) 0f else if (angle > 360) 360f else angle
+            invalidate()
+        }
+
+    var progressDirection: ProgressDirection = ProgressDirection.TO_RIGHT
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     var indeterminateMode = false
         set(value) {
-            if (!value && field) {
-                progress = 0f
-            }
-
             field = value
             onIndeterminateModeChangeListener?.invoke(field)
-            rightToLeft = true
-            startAngle = DEFAULT_START_ANGLE
+            progressIndeterminateMode = 0f
+            progressDirectionIndeterminateMode = ProgressDirection.TO_RIGHT
+            startAngleIndeterminateMode = DEFAULT_START_ANGLE
 
             indeterminateModeHandler?.removeCallbacks(indeterminateModeRunnable)
             progressAnimator?.cancel()
@@ -105,24 +123,34 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
             }
         }
 
-    var roundBorder = false
-        set(value) {
-            field = value
-            foregroundPaint.strokeCap = if(field) Paint.Cap.ROUND else Paint.Cap.BUTT
-        }
-
     var onProgressChangeListener: ((Float) -> Unit)? = null
 
     var onIndeterminateModeChangeListener: ((Boolean) -> Unit)? = null
     //endregion
 
     //region Indeterminate Mode
+    private var progressIndeterminateMode: Float = 0f
+        set(value) {
+            field = value
+            invalidate()
+        }
+    private var progressDirectionIndeterminateMode: ProgressDirection = ProgressDirection.TO_RIGHT
+        set(value) {
+            field = value
+            invalidate()
+        }
+    private var startAngleIndeterminateMode: Float = DEFAULT_START_ANGLE
+        set(value) {
+            field = value
+            invalidate()
+        }
+
     private val indeterminateModeRunnable = Runnable {
         if (indeterminateMode) {
             postIndeterminateModeHandler()
             // whatever you want to do below
-            this@CircularProgressBar.rightToLeft = !this@CircularProgressBar.rightToLeft
-            if (this@CircularProgressBar.rightToLeft) {
+            this@CircularProgressBar.progressDirectionIndeterminateMode = this@CircularProgressBar.progressDirectionIndeterminateMode.reverse()
+            if (this@CircularProgressBar.progressDirectionIndeterminateMode.isToRight()) {
                 setProgressWithAnimation(0f)
             } else {
                 setProgressWithAnimation(progressMax)
@@ -156,6 +184,11 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
         backgroundProgressBarColor = attributes.getInt(R.styleable.CircularProgressBar_cpb_background_progressbar_color, backgroundProgressBarColor)
         // Round Border
         roundBorder = attributes.getBoolean(R.styleable.CircularProgressBar_cpb_round_border, roundBorder)
+        // Progress Direction
+        val progressDirectionIntValue = attributes.getInteger(R.styleable.CircularProgressBar_cpb_progress_direction, progressDirection.value)
+        progressDirection = ProgressDirection.fromValue(progressDirectionIntValue)
+        // Angle
+        startAngle = attributes.getFloat(R.styleable.CircularProgressBar_cpb_start_angle, 0f)
 
         attributes.recycle()
     }
@@ -170,9 +203,11 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawOval(rectF, backgroundPaint)
-        val realProgress = progress * DEFAULT_MAX_VALUE / progressMax
-        val angle = (if (rightToLeft) 360 else -360) * realProgress / 100
-        canvas.drawArc(rectF, startAngle, angle, false, foregroundPaint)
+        val realProgress = (if (indeterminateMode) progressIndeterminateMode else progress) * DEFAULT_MAX_VALUE / progressMax
+        val angle = (if ((indeterminateMode && progressDirectionIndeterminateMode.isToRight())
+                || (!indeterminateMode && progressDirection.isToRight())) 360 else -360) * realProgress / 100
+
+        canvas.drawArc(rectF, if (indeterminateMode) startAngleIndeterminateMode else startAngle, angle, false, foregroundPaint)
     }
 
     override fun setBackgroundColor(backgroundColor: Int) {
@@ -200,14 +235,15 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
     @JvmOverloads
     fun setProgressWithAnimation(progress: Float, duration: Long = DEFAULT_ANIMATION_DURATION) {
         progressAnimator?.cancel()
-        progressAnimator = ValueAnimator.ofFloat(this.progress, progress)
+        progressAnimator = ValueAnimator.ofFloat(if (indeterminateMode) progressIndeterminateMode else this.progress, progress)
         progressAnimator?.duration = duration
         progressAnimator?.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
-            this.progress = value
+            if (indeterminateMode) progressIndeterminateMode = value else this.progress = value
             if (indeterminateMode) {
                 val updateAngle = value * 360 / 100
-                startAngle = DEFAULT_START_ANGLE + if (rightToLeft) updateAngle else -updateAngle
+                startAngleIndeterminateMode = DEFAULT_START_ANGLE +
+                        if (progressDirectionIndeterminateMode.isToRight()) updateAngle else -updateAngle
             }
         }
         progressAnimator?.start()
@@ -218,5 +254,23 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
 
     private fun Float.pxToDp(): Float =
             this / Resources.getSystem().displayMetrics.density
+
+    enum class ProgressDirection(val value: Int) {
+        TO_RIGHT(1),
+        TO_LEFT(2);
+
+        companion object {
+            fun fromValue(value: Int): ProgressDirection =
+                    when (value) {
+                        1 -> TO_RIGHT
+                        2 -> TO_LEFT
+                        else -> throw IllegalArgumentException("This value is not supported for ShadowGravity: $value")
+                    }
+        }
+
+        fun reverse(): ProgressDirection = if (this.isToRight()) TO_LEFT else TO_RIGHT
+
+        fun isToRight(): Boolean = this == TO_RIGHT
+    }
 
 }
