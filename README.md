@@ -59,8 +59,8 @@ JAVA
 
 ```java
 CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.yourCircularProgressbar);
-circularProgressBar.setProgressBarColor(ContextCompat.getProgressBarColor(this, R.color.progressBarColor));
-circularProgressBar.setBackgroundColor(ContextCompat.getProgressBarColor(this, R.color.backgroundProgressBarColor));
+circularProgressBar.setProgressBarColor(ContextCompat.getColor(this, R.color.progressBarColor));
+circularProgressBar.setBackgroundColor(ContextCompat.getColor(this, R.color.backgroundProgressBarColor));
 circularProgressBar.setProgressBarWidth(getResources().getDimension(R.dimen.progressBarWidth));
 circularProgressBar.setBackgroundProgressBarWidth(getResources().getDimension(R.dimen.backgroundProgressBarWidth));
 int animationDuration = 2500; // 2500ms = 2,5s
