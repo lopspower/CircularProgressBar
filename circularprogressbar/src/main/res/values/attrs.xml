@@ -7,6 +7,6 @@
         <attr name="cpb_background_progressbar_color" format="color" />
         <attr name="cpb_progressbar_width" format="dimension" />
         <attr name="cpb_background_progressbar_width" format="dimension" />
+        <attr name="cpb_round_border" format="boolean" />
     </declare-styleable>
-
 </resources>

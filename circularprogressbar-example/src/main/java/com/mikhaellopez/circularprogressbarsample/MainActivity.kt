@@ -16,24 +16,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         circularProgressBar.setProgressWithAnimation(65f)
-        seekBarProgress.onProgressChanged { circularProgressBar.progress = it.toFloat() }
-        seekBarStrokeWidth.onProgressChanged { circularProgressBar.progressBarWidth = it * resources.displayMetrics.density }
-        seekBarBackgroundStrokeWidth.onProgressChanged { circularProgressBar.backgroundProgressBarWidth = it * resources.displayMetrics.density }
+        seekBarProgress.onProgressChanged { progress, fromUser -> if(fromUser) circularProgressBar.progress = progress }
+        seekBarStrokeWidth.onProgressChanged { value, _ -> circularProgressBar.progressBarWidth = value }
+        seekBarBackgroundStrokeWidth.onProgressChanged { value, _ -> circularProgressBar.backgroundProgressBarWidth = value }
         shadeslider.onColorChanged {
             circularProgressBar.color = it
-            circularProgressBar.backgroundColor = adjustAlpha(it, 0.3f)
+            circularProgressBar.backgroundProgressBarColor = adjustAlpha(it, 0.3f)
         }
 
         // INDETERMINATE MODE
-        switchIndeterminateMode.setOnCheckedChangeListener { _, isChecked -> circularProgressBar.enableIndeterminateMode(isChecked) }
-        circularProgressBar.setOnIndeterminateModeChangeListener { isEnable -> switchIndeterminateMode.isChecked = isEnable }
+        switchIndeterminateMode.setOnCheckedChangeListener { _, isChecked -> circularProgressBar.indeterminateMode = isChecked }
+        circularProgressBar.onIndeterminateModeChangeListener = { switchIndeterminateMode.isChecked = it }
     }
 
     //region Extensions
-    private fun SeekBar.onProgressChanged(onProgressChanged: (Int) -> Unit) {
+    private fun SeekBar.onProgressChanged(onProgressChanged: (Float, Boolean) -> Unit) {
         setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                onProgressChanged(progress)
+                onProgressChanged(progress.toFloat(), fromUser)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

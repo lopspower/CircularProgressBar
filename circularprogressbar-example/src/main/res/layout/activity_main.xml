@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
         android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
@@ -22,7 +22,8 @@
             app:cpb_background_progressbar_color="#b6bbd8"
             app:cpb_background_progressbar_width="10dp"
             app:cpb_progressbar_color="#3f51b5"
-            app:cpb_progressbar_width="20dp" />
+            app:cpb_progressbar_width="20dp"
+            app:cpb_round_border="true" />
 
     </LinearLayout>
 
@@ -67,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp">
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
 
             <TextView
                 android:layout_width="0dp"

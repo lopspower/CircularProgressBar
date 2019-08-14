@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
@@ -16,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+dependencies {
+    implementation kotlinStdlib
 }
 
 //region Publish to jCenter
@@ -39,6 +44,16 @@ publishing {
             groupId libGroupId
             artifactId libArtifactId
             version libVersion
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                // Add KotlinStdlib
+                def kotlinStdlibDepNode = dependenciesNode.appendNode('dependency')
+                kotlinStdlibDepNode.appendNode('groupId', kotlinStdlibGroupId)
+                kotlinStdlibDepNode.appendNode('artifactId', kotlinStdlibArtifactId)
+                kotlinStdlibDepNode.appendNode('version', kotlinStdlibVersion)
+            }
+
             artifact(sourceJar)
             artifact("$buildDir/outputs/aar/$libArtifactId-release.aar")
         }
