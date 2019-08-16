@@ -1,5 +1,6 @@
 package com.mikhaellopez.circularprogressbar
 
+import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.Resources
@@ -302,14 +303,21 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
     /**
      * Set the progress with animation.
      *
-     * @param progress The progress it should animate to it.
-     * @param duration The length of the animation, in milliseconds.
+     * @param progress [Float] The progress it should animate to it.
+     * @param duration [Long] optional, null by default.
+     * @param interpolator [TimeInterpolator] optional, null by default.
+     * @param startDelay [Long] optional, null by default.
      */
     @JvmOverloads
-    fun setProgressWithAnimation(progress: Float, duration: Long = DEFAULT_ANIMATION_DURATION) {
+    fun setProgressWithAnimation(progress: Float,
+                                 duration: Long? = null,
+                                 interpolator: TimeInterpolator? = null,
+                                 startDelay: Long? = null) {
         progressAnimator?.cancel()
         progressAnimator = ValueAnimator.ofFloat(if (indeterminateMode) progressIndeterminateMode else this.progress, progress)
-        progressAnimator?.duration = duration
+        duration?.also { progressAnimator?.duration = it }
+        interpolator?.also { progressAnimator?.interpolator = it }
+        startDelay?.also { progressAnimator?.startDelay = it }
         progressAnimator?.addUpdateListener { animation ->
             (animation.animatedValue as? Float)?.also { value ->
                 if (indeterminateMode) progressIndeterminateMode = value else this.progress = value
