@@ -24,7 +24,7 @@ USAGE
 To make a circular ProgressBar add CircularProgressBar in your layout XML and add CircularProgressBar library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularprogressbar:3.0.0'
+implementation 'com.mikhaellopez:circularprogressbar:3.0.1'
 ```
 
 XML
@@ -73,7 +73,7 @@ circularProgressBar.apply {
     // Set Progress
     progress = 65f
     // or with animation
-    setProgressWithAnimation(65f, 1000) // =1s, Default duration = 1500ms
+    setProgressWithAnimation(65f, 1000) // =1s
 
     // Set Progress Max
     progressMax = 200f
@@ -123,7 +123,7 @@ CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id
 // Set Progress
 circularProgressBar.setProgress(65f);
 // or with animation
-circularProgressBar.setProgressWithAnimation(65f, 1000); // =1s, Default duration = 1500ms
+circularProgressBar.setProgressWithAnimation(65f, 1000); // =1s
 
 // Set Progress Max
 circularProgressBar.setProgressMax(200f);
