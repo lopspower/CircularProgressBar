@@ -103,7 +103,7 @@ circularProgressBar.apply {
 }
 ```
 
-### Listener
+### Listener (in Kotlin)
 
 ```kotlin
 circularProgressBar.onProgressChangeListener = { progress ->
@@ -152,7 +152,7 @@ circularProgressBar.setStartAngle(180f);
 circularProgressBar.setProgressDirection(CircularProgressBar.ProgressDirection.TO_RIGHT);
 ```
 
-### Listener
+### Listener (in Java)
 
 ```java
 circularProgressBar.setOnIndeterminateModeChangeListener(isEnable -> {
