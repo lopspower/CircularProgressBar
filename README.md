@@ -3,7 +3,7 @@
 CircularProgressBar
 =================
 
-<img src="/preview/preview.gif" alt="sample" title="sample" width="300" height="404" align="right" vspace="24" />
+<img src="/preview/preview.gif" alt="sample" title="sample" width="300" height="480" align="right" vspace="24" />
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
@@ -24,7 +24,7 @@ USAGE
 To make a circular ProgressBar add CircularProgressBar in your layout XML and add CircularProgressBar library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularprogressbar:2.0.0'
+implementation 'com.mikhaellopez:circularprogressbar:3.0.0'
 ```
 
 XML
@@ -32,39 +32,112 @@ XML
 
 ```xml
 <com.mikhaellopez.circularprogressbar.CircularProgressBar
+    android:id="@+id/circularProgressBar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cpb_background_progressbar_color="#FFCDD2"
+    app:cpb_background_progressbar_color="#b6bbd8"
     app:cpb_background_progressbar_width="5dp"
-    app:cpb_progressbar_color="#F44336"
-    app:cpb_progressbar_width="10dp" />
+    app:cpb_progress_direction="to_right"
+    app:cpb_progressbar_color="#3f51b5"
+    app:cpb_progressbar_width="10dp"
+    app:cpb_round_border="false" />
 ```
 
 You must use the following properties in your XML to change your CircularProgressBar.
 
+| Properties                                       | Type                                                         | Default                         |
+| ------------------------------------------------ | ------------------------------------------------------------ | ------------------------------- |
+| `app:cpb_progress`                               | integer                                                      | 0                               |
+| `app:cpb_progress_max`                           | integer                                                      | 100                             |
+| `app:cpb_indeterminate_mode`                     | boolean                                                      | false                           |
+| `app:cpb_progressbar_color`                      | color                                                        | BLACK |
+| `app:cpb_progressbar_color_start`                | color                                                        | cpb_progressbar_color |
+| `app:cpb_progressbar_color_end`                  | color                                                        | cpb_progressbar_color |
+| `app:cpb_progressbar_width`                      | dimension                                                    | 7dp                             |
+| `app:cpb_progressbar_color_direction`            | left_to_right, right_to_left, top_to_bottom or bottom_to_top | left_to_right         |
+| `app:cpb_background_progressbar_color`           | color                                                        | GRAY                             |
+| `app:cpb_background_progressbar_color_start`     | color                                                        | GRAY                             |
+| `app:cpb_background_progressbar_color_end`       | color                                                        | GRAY                             |
+| `app:cpb_background_progressbar_color_direction` | left_to_right, right_to_left, top_to_bottom or bottom_to_top | left_to_right         |
+| `app:cpb_background_progressbar_width`           | dimension                                                    | 3dp                             |
+| `app:cpb_round_border`                           | boolean                                                      | false                           |
+| `app:cpb_start_angle`                            | float                                                        | 0f (=top)                       |
+| `app:cpb_progress_direction`                     | to_right, to_left                                            | to_right                         |
 
-##### Properties:
+KOTLIN
+-----
 
-* `app:cpb_progress`                      (integer)   -> default 0
-* `app:cpb_progress_max`                  (integer)   -> default 100
-* `app:cpb_indeterminate_mode`            (boolean)   -> default false
-* `app:cpb_progressbar_color`             (color)     -> default BLACK
-* `app:cpb_background_progressbar_color`  (color)     -> default GRAY
-* `app:cpb_progressbar_width`             (dimension) -> default 7dp
-* `app:cpb_background_progressbar_width`  (dimension) -> default 3dp
+```kotlin
+val circularProgressBar = findViewById<CircularProgressBar>(R.id.yourCircularProgressbar)
+circularProgressBar.apply {
+    // Set Progress
+    progress = 65f
+    // or with animation
+    setProgressWithAnimation(65f, 1000) // =1s, Default duration = 1500ms
 
+    // Set Progress Max
+    progressMax = 200f
+
+    // Set ProgressBar Color
+    progressBarColor = Color.BLACK
+    // or with gradient
+    progressBarColorStart = Color.GRAY
+    progressBarColorEnd = Color.RED
+    progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+
+    // Set background ProgressBar Color
+    backgroundProgressBarColor = Color.GRAY
+    // or with gradient
+    backgroundProgressBarColorStart = Color.WHITE
+    backgroundProgressBarColorEnd = Color.RED
+    backgroundProgressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+
+    // Set Width
+    progressBarWidth = 7f // in DP
+    backgroundProgressBarWidth = 3f // in DP
+
+    // Other
+    roundBorder = true
+    startAngle = 180f
+    progressDirection = CircularProgressBar.ProgressDirection.TO_RIGHT
+}
+```
 
 JAVA
 -----
 
 ```java
 CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.yourCircularProgressbar);
-circularProgressBar.setProgressBarColor(ContextCompat.getColor(this, R.color.progressBarColor));
-circularProgressBar.setBackgroundColor(ContextCompat.getColor(this, R.color.backgroundProgressBarColor));
-circularProgressBar.setProgressBarWidth(getResources().getDimension(R.dimen.progressBarWidth));
-circularProgressBar.setBackgroundProgressBarWidth(getResources().getDimension(R.dimen.backgroundProgressBarWidth));
-int animationDuration = 2500; // 2500ms = 2,5s
-circularProgressBar.setProgressWithAnimation(65, animationDuration); // Default duration = 1500ms
+// Set Progress
+circularProgressBar.setProgress(65f);
+// or with animation
+circularProgressBar.setProgressWithAnimation(65f, 1000); // =1s, Default duration = 1500ms
+
+// Set Progress Max
+circularProgressBar.setProgressMax(200f);
+
+// Set ProgressBar Color
+circularProgressBar.setProgressBarColor(Color.BLACK);
+// or with gradient
+circularProgressBar.setProgressBarColorStart(Color.GRAY);
+circularProgressBar.setProgressBarColorEnd(Color.RED);
+circularProgressBar.setProgressBarColorDirection(CircularProgressBar.GradientDirection.TOP_TO_BOTTOM);
+
+// Set background ProgressBar Color
+circularProgressBar.setBackgroundProgressBarColor(Color.GRAY);
+// or with gradient
+circularProgressBar.setBackgroundProgressBarColorStart(Color.WHITE);
+circularProgressBar.setBackgroundProgressBarColorEnd(Color.RED);
+circularProgressBar.setBackgroundProgressBarColorDirection(CircularProgressBar.GradientDirection.TOP_TO_BOTTOM);
+
+// Set Width
+circularProgressBar.setProgressBarWidth(7f); // in DP
+circularProgressBar.setBackgroundProgressBarWidth(3f); // in DP
+
+// Other
+circularProgressBar.setRoundBorder(true);
+circularProgressBar.setStartAngle(180f);
+circularProgressBar.setProgressDirection(CircularProgressBar.ProgressDirection.TO_RIGHT);
 ```
 
 LICENCE
