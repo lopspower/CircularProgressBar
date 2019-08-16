@@ -249,8 +249,10 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
 
         canvas.drawOval(rectF, backgroundPaint)
         val realProgress = (if (indeterminateMode) progressIndeterminateMode else progress) * DEFAULT_MAX_VALUE / progressMax
-        val angle = (if ((indeterminateMode && progressDirectionIndeterminateMode.isToRight())
-                || (!indeterminateMode && progressDirection.isToRight())) 360 else -360) * realProgress / 100
+
+        val isToRightFromIndeterminateMode = indeterminateMode && progressDirectionIndeterminateMode.isToRight()
+        val isToRightFromNormalMode = !indeterminateMode && progressDirection.isToRight()
+        val angle = (if (isToRightFromIndeterminateMode || isToRightFromNormalMode) 360 else -360) * realProgress / 100
 
         canvas.drawArc(rectF, if (indeterminateMode) startAngleIndeterminateMode else startAngle, angle, false, foregroundPaint)
     }
@@ -309,12 +311,13 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
         progressAnimator = ValueAnimator.ofFloat(if (indeterminateMode) progressIndeterminateMode else this.progress, progress)
         progressAnimator?.duration = duration
         progressAnimator?.addUpdateListener { animation ->
-            val value = animation.animatedValue as Float
-            if (indeterminateMode) progressIndeterminateMode = value else this.progress = value
-            if (indeterminateMode) {
-                val updateAngle = value * 360 / 100
-                startAngleIndeterminateMode = DEFAULT_START_ANGLE +
-                        if (progressDirectionIndeterminateMode.isToRight()) updateAngle else -updateAngle
+            (animation.animatedValue as? Float)?.also { value ->
+                if (indeterminateMode) progressIndeterminateMode = value else this.progress = value
+                if (indeterminateMode) {
+                    val updateAngle = value * 360 / 100
+                    startAngleIndeterminateMode = DEFAULT_START_ANGLE +
+                            if (progressDirectionIndeterminateMode.isToRight()) updateAngle else -updateAngle
+                }
             }
         }
         progressAnimator?.start()
