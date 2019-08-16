@@ -103,6 +103,18 @@ circularProgressBar.apply {
 }
 ```
 
+### Listener
+
+```kotlin
+circularProgressBar.onProgressChangeListener = { progress ->
+    // Do something
+}
+
+circularProgressBar.onIndeterminateModeChangeListener = { isEnable ->
+    // Do something
+}
+```
+
 JAVA
 -----
 
@@ -138,6 +150,20 @@ circularProgressBar.setBackgroundProgressBarWidth(3f); // in DP
 circularProgressBar.setRoundBorder(true);
 circularProgressBar.setStartAngle(180f);
 circularProgressBar.setProgressDirection(CircularProgressBar.ProgressDirection.TO_RIGHT);
+```
+
+### Listener
+
+```java
+circularProgressBar.setOnIndeterminateModeChangeListener(isEnable -> {
+    // Do something
+    return Unit.INSTANCE;
+});
+
+ circularProgressBar.setOnProgressChangeListener(progress -> {
+    // Do something
+    return Unit.INSTANCE;
+});
 ```
 
 LICENCE
