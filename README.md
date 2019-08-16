@@ -62,7 +62,7 @@ You must use the following properties in your XML to change your CircularProgres
 | `app:cpb_background_progressbar_width`           | dimension                                                    | 3dp                   |
 | `app:cpb_round_border`                           | boolean                                                      | false                 |
 | `app:cpb_start_angle`                            | float                                                        | 0f (=top)             |
-| `app:cpb_progress_direction`                     | to_right, to_left                                            | to_right              |
+| `app:cpb_progress_direction`                     | to_right or to_left                                            | to_right              |
 
 KOTLIN
 -----
