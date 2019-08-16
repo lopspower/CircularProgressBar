@@ -174,9 +174,9 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
             // whatever you want to do below
             this@CircularProgressBar.progressDirectionIndeterminateMode = this@CircularProgressBar.progressDirectionIndeterminateMode.reverse()
             if (this@CircularProgressBar.progressDirectionIndeterminateMode.isToRight()) {
-                setProgressWithAnimation(0f)
+                setProgressWithAnimation(0f, 1500)
             } else {
-                setProgressWithAnimation(progressMax)
+                setProgressWithAnimation(progressMax, 1500)
             }
         }
     }
