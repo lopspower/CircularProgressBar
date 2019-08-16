@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             app:cpb_background_progressbar_color="#b6bbd8"
             app:cpb_background_progressbar_width="10dp"
-            app:cpb_progress="30"
             app:cpb_progress_direction="to_right"
             app:cpb_progressbar_color="#3f51b5"
             app:cpb_progressbar_width="20dp" />
@@ -40,13 +39,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="100"
+            android:maxHeight="20dp"
+            android:minHeight="20dp"
             android:progress="65" />
 
         <SeekBar
             android:id="@+id/seekBarStartAngle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:max="360"
             android:progress="0" />
 
@@ -54,7 +55,7 @@
             android:id="@+id/seekBarStrokeWidth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:max="70"
             android:progress="20" />
 
@@ -62,20 +63,21 @@
             android:id="@+id/seekBarBackgroundStrokeWidth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:max="70"
             android:progress="10" />
 
         <com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
-            android:id="@+id/shadeslider"
+            android:id="@+id/shadeSlider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="7dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingStart="15dp"
             android:paddingEnd="15dp">
@@ -86,15 +88,28 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="@string/indeterminate_mode"
+                android:text="@string/left"
                 android:textColor="@color/primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <Switch
-                android:id="@+id/switchIndeterminateMode"
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchProgressDirection"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/right"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -117,7 +132,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchRoundBorder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -128,7 +143,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:gravity="center"
             android:orientation="horizontal"
             android:paddingStart="15dp"
             android:paddingEnd="15dp">
@@ -139,28 +153,15 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="@string/left"
+                android:text="@string/indeterminate_mode"
                 android:textColor="@color/primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <Switch
-                android:id="@+id/switchProgressDirection"
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchIndeterminateMode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="@string/right"
-                android:textColor="@color/primary"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

@@ -258,6 +258,32 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
     override fun setBackgroundColor(backgroundColor: Int) {
         backgroundProgressBarColor = backgroundColor
     }
+
+    private fun manageColor() {
+        foregroundPaint.shader = createLinearGradient(progressBarColorStart ?: progressBarColor,
+                progressBarColorEnd ?: progressBarColor, progressBarColorDirection)
+    }
+
+    private fun manageBackgroundProgressBarColor() {
+        backgroundPaint.shader = createLinearGradient(
+                backgroundProgressBarColorStart ?: backgroundProgressBarColor,
+                backgroundProgressBarColorEnd ?: backgroundProgressBarColor,
+                backgroundProgressBarColorDirection)
+    }
+
+    private fun createLinearGradient(startColor: Int, endColor: Int, gradientDirection: GradientDirection): LinearGradient {
+        var x0 = 0f
+        var y0 = 0f
+        var x1 = 0f
+        var y1 = 0f
+        when (gradientDirection) {
+            GradientDirection.LEFT_TO_RIGHT -> x1 = width.toFloat()
+            GradientDirection.RIGHT_TO_LEFT -> x0 = width.toFloat()
+            GradientDirection.TOP_TO_BOTTOM -> y1 = height.toFloat()
+            GradientDirection.BOTTOM_TO_END -> y0 = height.toFloat()
+        }
+        return LinearGradient(x0, y0, x1, y1, startColor, endColor, Shader.TileMode.CLAMP)
+    }
     //endregion
 
     //region Measure Method
@@ -294,32 +320,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
         progressAnimator?.start()
     }
 
-    private fun manageColor() {
-        foregroundPaint.shader = createLinearGradient(progressBarColorStart ?: progressBarColor,
-                progressBarColorEnd ?: progressBarColor, progressBarColorDirection)
-    }
-
-    private fun manageBackgroundProgressBarColor() {
-        backgroundPaint.shader = createLinearGradient(
-                backgroundProgressBarColorStart ?: backgroundProgressBarColor,
-                backgroundProgressBarColorEnd ?: backgroundProgressBarColor,
-                backgroundProgressBarColorDirection)
-    }
-
-    private fun createLinearGradient(startColor: Int, endColor: Int, gradientDirection: GradientDirection): LinearGradient {
-        var x0 = 0f
-        var y0 = 0f
-        var x1 = 0f
-        var y1 = 0f
-        when (gradientDirection) {
-            GradientDirection.LEFT_TO_RIGHT -> x1 = width.toFloat()
-            GradientDirection.RIGHT_TO_LEFT -> x0 = width.toFloat()
-            GradientDirection.TOP_TO_BOTTOM -> y1 = height.toFloat()
-            GradientDirection.BOTTOM_TO_END -> y0 = height.toFloat()
-        }
-        return LinearGradient(x0, y0, x1, y1, startColor, endColor, Shader.TileMode.CLAMP)
-    }
-
+    //region Extensions Utils
     private fun Float.dpToPx(): Float =
             this * Resources.getSystem().displayMetrics.density
 
@@ -333,6 +334,11 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
                 else -> throw IllegalArgumentException("This value is not supported for ProgressDirection: $this")
             }
 
+    private fun ProgressDirection.reverse(): ProgressDirection =
+            if (this.isToRight()) ProgressDirection.TO_LEFT else ProgressDirection.TO_RIGHT
+
+    private fun ProgressDirection.isToRight(): Boolean = this == ProgressDirection.TO_RIGHT
+
     private fun Int.toGradientDirection(): GradientDirection =
             when (this) {
                 1 -> GradientDirection.LEFT_TO_RIGHT
@@ -341,14 +347,14 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
                 4 -> GradientDirection.BOTTOM_TO_END
                 else -> throw IllegalArgumentException("This value is not supported for GradientDirection: $this")
             }
+    //endregion
 
+    /**
+     * ProgressDirection enum class to set the direction of the progress in progressBar
+     */
     enum class ProgressDirection(val value: Int) {
         TO_RIGHT(1),
-        TO_LEFT(2);
-
-        fun reverse(): ProgressDirection = if (this.isToRight()) TO_LEFT else TO_RIGHT
-
-        fun isToRight(): Boolean = this == TO_RIGHT
+        TO_LEFT(2)
     }
 
     /**

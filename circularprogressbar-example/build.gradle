@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    implementation project(':circularprogressbar')
-    //implementation "com.mikhaellopez:circularprogressbar:$androidVersionName"
+    //implementation project(':circularprogressbar')
+    implementation "com.mikhaellopez:circularprogressbar:$androidVersionName"
     implementation kotlinStdlib
     implementation androidXAppCompat
     implementation lobsterPicker

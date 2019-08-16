@@ -3,8 +3,8 @@ package com.mikhaellopez.circularprogressbarsample
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.SeekBar
-import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import com.larswerkman.lobsterpicker.OnColorListener
 import com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -17,12 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        circularProgressBar.setProgressWithAnimation(100f)
+        circularProgressBar.setProgressWithAnimation(65f)
         seekBarProgress.onProgressChanged { circularProgressBar.progress = it }
         seekBarStartAngle.onProgressChanged { circularProgressBar.startAngle = it }
         seekBarStrokeWidth.onProgressChanged { circularProgressBar.progressBarWidth = it }
         seekBarBackgroundStrokeWidth.onProgressChanged { circularProgressBar.backgroundProgressBarWidth = it }
-        shadeslider.onColorChanged {
+        shadeSlider.onColorChanged {
             circularProgressBar.progressBarColor = it
             circularProgressBar.backgroundProgressBarColor = adjustAlpha(it, 0.3f)
         }
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun Switch.onCheckedChange(onCheckedChange: (Boolean) -> Unit) {
+    private fun SwitchCompat.onCheckedChange(onCheckedChange: (Boolean) -> Unit) {
         this.setOnCheckedChangeListener { _, isChecked -> onCheckedChange(isChecked) }
     }
     //endregion
