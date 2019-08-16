@@ -119,7 +119,7 @@ JAVA
 -----
 
 ```java
-CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.yourCircularProgressbar);
+CircularProgressBar circularProgressBar = findViewById(R.id.yourCircularProgressbar);
 // Set Progress
 circularProgressBar.setProgress(65f);
 // or with animation
