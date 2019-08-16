@@ -17,7 +17,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        circularProgressBar.setProgressWithAnimation(65f)
+        // Set Init progress with animation
+        circularProgressBar.setProgressWithAnimation(65f, 1000L) // =1s
+
+        // Update circularProgressBar
         seekBarProgress.onProgressChanged { circularProgressBar.progress = it }
         seekBarStartAngle.onProgressChanged { circularProgressBar.startAngle = it }
         seekBarStrokeWidth.onProgressChanged { circularProgressBar.progressBarWidth = it }
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                     else CircularProgressBar.ProgressDirection.TO_LEFT
         }
 
-        // INDETERMINATE MODE
+        // Indeterminate Mode
         switchIndeterminateMode.onCheckedChange { circularProgressBar.indeterminateMode = it }
         circularProgressBar.onIndeterminateModeChangeListener = { switchIndeterminateMode.isChecked = it }
     }
