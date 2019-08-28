@@ -7,10 +7,10 @@ CircularProgressBar
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1f1cf02d760848af8c6b63e7bb0a1db8)](https://app.codacy.com/app/lopspower/CircularProgressBar?utm_source=github.com&utm_medium=referral&utm_content=lopspower/CircularProgressBar&utm_campaign=Badge_Grade_Dashboard)
+[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularprogressbar/images/download.svg?version=3.0.2)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularprogressbar/3.0.2/link)
 <br>
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CircularProgressBar-lightgrey.svg?style=flat)](https://android-arsenal.com/details/1/2845)
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1f1cf02d760848af8c6b63e7bb0a1db8)](https://app.codacy.com/app/lopspower/CircularProgressBar?utm_source=github.com&utm_medium=referral&utm_content=lopspower/CircularProgressBar&utm_campaign=Badge_Grade_Dashboard)
 
 This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.
 
@@ -165,6 +165,13 @@ circularProgressBar.setOnIndeterminateModeChangeListener(isEnable -> {
     return Unit.INSTANCE;
 });
 ```
+
+SUPPORT ❤️
+-----
+
+Find this library useful? Support it by joining [**stargazers**](https://github.com/lopspower/CircularProgressBar/stargazers) for this repository ⭐️
+<br/>
+And [**follow me**](https://github.com/lopspower?tab=followers) for my next creations 👍
 
 LICENCE
 -----
