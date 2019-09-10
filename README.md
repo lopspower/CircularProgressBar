@@ -1,4 +1,4 @@
-<p align="center"><img src="http://i64.tinypic.com/2ak9sox.png"></p>
+<p align="center"><img src="/preview/header.png"></p>
 
 CircularProgressBar
 =================
