@@ -7,8 +7,8 @@ allprojects {
 
 ext {
     // APP VERSION
-    androidVersionCode          = 8
-    androidVersionName          = '3.0.2'
+    androidVersionCode          = 9
+    androidVersionName          = '3.0.3'
 
     // ANDROID VERSION
     androidCompileSdkVersion    = 28
@@ -22,7 +22,7 @@ ext {
     kotlinStdlib                = "$kotlinStdlibGroupId:$kotlinStdlibArtifactId:$kotlinStdlibVersion"
 
     // ANDROID LIB
-    androidAppCompatXVersion    = '1.0.2'
+    androidAppCompatXVersion    = '1.1.0'
     androidXAppCompat           = "androidx.appcompat:appcompat:$androidAppCompatXVersion"
 
     // UI

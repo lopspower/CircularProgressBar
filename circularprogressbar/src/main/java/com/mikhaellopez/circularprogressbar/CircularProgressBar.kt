@@ -14,7 +14,7 @@ import kotlin.math.min
  * Copyright (C) 2019 Mikhael LOPEZ
  * Licensed under the Apache License Version 2.0
  */
-class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
 
     companion object {
         private const val DEFAULT_MAX_VALUE = 100f
@@ -190,7 +190,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet) : View(context,
         init(context, attrs)
     }
 
-    private fun init(context: Context, attrs: AttributeSet) {
+    private fun init(context: Context, attrs: AttributeSet?) {
         // Load the styled attributes and set their properties
         val attributes = context.theme.obtainStyledAttributes(attrs, R.styleable.CircularProgressBar, 0, 0)
 
