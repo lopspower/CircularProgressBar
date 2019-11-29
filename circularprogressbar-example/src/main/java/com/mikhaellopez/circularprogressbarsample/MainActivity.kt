@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Set Init progress with animation
-        circularProgressBar.setProgressWithAnimation(65f, 1000L) // =1s
+        circularProgressBar.setProgressWithAnimation(65f, 1000) // =1s
 
         // Update circularProgressBar
         seekBarProgress.onProgressChanged { circularProgressBar.progress = it }
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun SwitchCompat.onCheckedChange(onCheckedChange: (Boolean) -> Unit) {
-        this.setOnCheckedChangeListener { _, isChecked -> onCheckedChange(isChecked) }
+        setOnCheckedChangeListener { _, isChecked -> onCheckedChange(isChecked) }
     }
     //endregion
 
