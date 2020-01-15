@@ -8,6 +8,7 @@ import android.graphics.*
 import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
+import kotlin.math.max
 import kotlin.math.min
 
 /**
@@ -295,8 +296,13 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         val width = getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
         val min = min(width, height)
         setMeasuredDimension(min, min)
+        val maxPadding = getMaxPadding(paddingTop, paddingBottom, paddingLeft, paddingRight)
         val highStroke = if (progressBarWidth > backgroundProgressBarWidth) progressBarWidth else backgroundProgressBarWidth
-        rectF.set(0 + highStroke / 2, 0 + highStroke / 2, min - highStroke / 2, min - highStroke / 2)
+        rectF.set(0 + highStroke + maxPadding / 2, 0 + highStroke + maxPadding / 2, min - highStroke - maxPadding / 2, min - highStroke - maxPadding / 2)
+    }
+
+    private fun getMaxPadding(paddingTop: Int, paddingBottom: Int, paddingLeft: Int, paddingRight: Int): Int {
+        return max(paddingTop, max(paddingBottom, max(paddingLeft, paddingRight)))
     }
     //endregion
 
