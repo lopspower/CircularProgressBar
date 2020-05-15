@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
+import android.os.Build
 import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
@@ -20,6 +21,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         private const val DEFAULT_MAX_VALUE = 100f
         private const val DEFAULT_START_ANGLE = 270f
         private const val DEFAULT_ANIMATION_DURATION = 1500L
+        private const val DEFAULT_TEXT_SIZE = 30
     }
 
     // Properties
@@ -149,6 +151,31 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         }
     var onProgressChangeListener: ((Float) -> Unit)? = null
     var onIndeterminateModeChangeListener: ((Boolean) -> Unit)? = null
+
+    private val textPaint = Paint()
+    private val canvasRect = Rect()
+    var progressTextColor: Int = Color.BLACK
+        set(value) {
+            field = value
+            textPaint.color = field
+            invalidate()
+        }
+    var progressTextSize: Float = DEFAULT_TEXT_SIZE.toFloat()
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var shouldShowProgressText: Boolean = false
+        set(value) {
+            field = value
+            invalidate()
+        }
+    var textTypeFace: Typeface? = null
+        set(value) {
+            field = value
+            invalidate()
+        }
     //endregion
 
     //region Indeterminate Mode
@@ -228,6 +255,17 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         // Indeterminate Mode
         indeterminateMode = attributes.getBoolean(R.styleable.CircularProgressBar_cpb_indeterminate_mode, indeterminateMode)
 
+        //should draw progress text
+        shouldShowProgressText = attributes.getBoolean(R.styleable.CircularProgressBar_cpb_show_progress_text, false)
+        progressTextColor = attributes.getInt(R.styleable.CircularProgressBar_cpb_text_color, progressBarColor)
+        progressTextSize = attributes.getDimensionPixelSize(R.styleable.CircularProgressBar_cpb_text_size, DEFAULT_TEXT_SIZE).toFloat()
+        val fontResId = attributes.getResourceId(R.styleable.CircularProgressBar_cpb_text_typeface, 0)
+        if (fontResId != 0) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                textTypeFace = resources.getFont(fontResId)
+            }
+        }
+
         attributes.recycle()
     }
 
@@ -256,6 +294,25 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         val angle = (if (isToRightFromIndeterminateMode || isToRightFromNormalMode) 360 else -360) * realProgress / 100
 
         canvas.drawArc(rectF, if (indeterminateMode) startAngleIndeterminateMode else startAngle, angle, false, foregroundPaint)
+        drawProgressText(canvas)
+    }
+
+    private fun drawProgressText(canvas: Canvas) {
+        if (shouldShowProgressText) {
+            val progressString = "${progress.toInt()}%"
+            canvas.getClipBounds(canvasRect)
+            val cHeight = canvasRect.height()
+            val cWidth = canvasRect.width()
+            textPaint.textAlign = Paint.Align.LEFT
+            textPaint.getTextBounds(progressString, 0, progressString.length, canvasRect)
+            val xPos = cWidth / 2f - canvasRect.width() / 2f - canvasRect.left
+            val yPos = cHeight / 2f + canvasRect.height() / 2f - canvasRect.bottom
+
+            textPaint.color = progressTextColor
+            textPaint.textSize = progressTextSize
+            textTypeFace?.let { textPaint.typeface = textTypeFace }
+            canvas.drawText(progressString, xPos, yPos, textPaint)
+        }
     }
 
     override fun setBackgroundColor(backgroundColor: Int) {

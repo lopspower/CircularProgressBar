@@ -29,5 +29,9 @@
             <flag name="to_right" value="1" />
             <flag name="to_left" value="2" />
         </attr>
+        <attr name="cpb_show_progress_text" format="boolean" />
+        <attr name="cpb_text_color" format="color" />
+        <attr name="cpb_text_size" format="dimension" />
+        <attr name="cpb_text_typeface" format="reference" />
     </declare-styleable>
 </resources>

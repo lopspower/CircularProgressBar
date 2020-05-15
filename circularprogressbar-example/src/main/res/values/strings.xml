@@ -8,5 +8,6 @@
     <string name="round_border">Round border</string>
     <string name="left">Left</string>
     <string name="right">Right</string>
+    <string name="show_progress_text">Show progress text</string>
 
 </resources>
