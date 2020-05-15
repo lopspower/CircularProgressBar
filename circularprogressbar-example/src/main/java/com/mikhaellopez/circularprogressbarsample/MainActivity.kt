@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         shadeSlider.onColorChanged {
             circularProgressBar.progressBarColor = it
             circularProgressBar.backgroundProgressBarColor = adjustAlpha(it, 0.3f)
+            circularProgressBar.progressTextColor = it
         }
         switchRoundBorder.onCheckedChange { circularProgressBar.roundBorder = it }
         switchProgressDirection.onCheckedChange {
@@ -39,6 +40,13 @@ class MainActivity : AppCompatActivity() {
         // Indeterminate Mode
         switchIndeterminateMode.onCheckedChange { circularProgressBar.indeterminateMode = it }
         circularProgressBar.onIndeterminateModeChangeListener = { switchIndeterminateMode.isChecked = it }
+
+        switchShowProgressText.onCheckedChange {
+            circularProgressBar.shouldShowProgressText = it
+        }
+        seekBarTextSize.onProgressChanged {
+            circularProgressBar.progressTextSize = it + MIN_TEXT_SIZE
+        }
     }
 
     //region Extensions
@@ -89,6 +97,10 @@ class MainActivity : AppCompatActivity() {
         val green = Color.green(color)
         val blue = Color.blue(color)
         return Color.argb(alpha, red, green, blue)
+    }
+
+    companion object {
+        const val MIN_TEXT_SIZE = 50
     }
 
 }
