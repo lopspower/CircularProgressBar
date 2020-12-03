@@ -145,10 +145,11 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
 
             progressAnimator?.cancel()
 
+            indeterminateModeHandlerOrNull?.removeCallbacks(indeterminateModeRunnable)
             if (value) {
                 if (isAttached)
                     indeterminateModeHandler.post(indeterminateModeRunnable)
-            } else indeterminateModeHandlerOrNull?.removeCallbacks(indeterminateModeRunnable)
+            }
         }
     var onProgressChangeListener: ((Float) -> Unit)? = null
     var onIndeterminateModeChangeListener: ((Boolean) -> Unit)? = null
