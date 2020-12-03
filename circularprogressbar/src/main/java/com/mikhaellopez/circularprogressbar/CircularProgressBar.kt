@@ -24,7 +24,10 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
 
     // Properties
     private var progressAnimator: ValueAnimator? = null
-    private var indeterminateModeHandler: Handler? = null
+    private var indeterminateModeHandlerOrNull: Handler? = null
+    private val indeterminateModeHandler: Handler
+        get() = indeterminateModeHandlerOrNull
+            ?: Handler().also(::indeterminateModeHandlerOrNull::set)
 
     // View
     private var rectF = RectF()
@@ -36,6 +39,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         isAntiAlias = true
         style = Paint.Style.STROKE
     }
+    private var isAttached: Boolean = false
 
     //region Attributes
     var progress: Float = 0f
@@ -139,13 +143,12 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
             progressDirectionIndeterminateMode = ProgressDirection.TO_RIGHT
             startAngleIndeterminateMode = DEFAULT_START_ANGLE
 
-            indeterminateModeHandler?.removeCallbacks(indeterminateModeRunnable)
             progressAnimator?.cancel()
-            indeterminateModeHandler = Handler()
 
-            if (field) {
-                indeterminateModeHandler?.post(indeterminateModeRunnable)
-            }
+            if (value) {
+                if (isAttached)
+                    indeterminateModeHandler.post(indeterminateModeRunnable)
+            } else indeterminateModeHandlerOrNull?.removeCallbacks(indeterminateModeRunnable)
         }
     var onProgressChangeListener: ((Float) -> Unit)? = null
     var onIndeterminateModeChangeListener: ((Boolean) -> Unit)? = null
@@ -170,7 +173,8 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
 
     private val indeterminateModeRunnable = Runnable {
         if (indeterminateMode) {
-            postIndeterminateModeHandler()
+            if (isAttached)
+                postIndeterminateModeHandler()
             // whatever you want to do below
             this@CircularProgressBar.progressDirectionIndeterminateMode = this@CircularProgressBar.progressDirectionIndeterminateMode.reverse()
             if (this@CircularProgressBar.progressDirectionIndeterminateMode.isToRight()) {
@@ -182,7 +186,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
     }
 
     private fun postIndeterminateModeHandler() {
-        indeterminateModeHandler?.postDelayed(indeterminateModeRunnable, DEFAULT_ANIMATION_DURATION)
+        indeterminateModeHandler.postDelayed(indeterminateModeRunnable, DEFAULT_ANIMATION_DURATION)
     }
     //endregion
 
@@ -231,10 +235,17 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         attributes.recycle()
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        isAttached = true
+        indeterminateModeRunnable.run()
+    }
+
     override fun onDetachedFromWindow() {
+        isAttached = false
         super.onDetachedFromWindow()
         progressAnimator?.cancel()
-        indeterminateModeHandler?.removeCallbacks(indeterminateModeRunnable)
+        indeterminateModeHandlerOrNull?.removeCallbacks(indeterminateModeRunnable)
     }
 
     //region Draw Method
