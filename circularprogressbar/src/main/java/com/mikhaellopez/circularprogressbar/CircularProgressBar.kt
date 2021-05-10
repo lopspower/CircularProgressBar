@@ -8,6 +8,7 @@ import android.graphics.*
 import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
+import kotlin.math.max
 import kotlin.math.min
 
 /**
@@ -295,7 +296,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         val width = getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
         val min = min(width, height)
         setMeasuredDimension(min, min)
-        val highStroke = if (progressBarWidth > backgroundProgressBarWidth) progressBarWidth else backgroundProgressBarWidth
+        val highStroke = max(progressBarWidth,backgroundProgressBarWidth)
         rectF.set(0 + highStroke / 2, 0 + highStroke / 2, min - highStroke / 2, min - highStroke / 2)
     }
     //endregion
