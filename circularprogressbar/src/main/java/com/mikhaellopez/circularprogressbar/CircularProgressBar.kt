@@ -296,7 +296,7 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
         val width = getDefaultSize(suggestedMinimumWidth, widthMeasureSpec)
         val min = min(width, height)
         setMeasuredDimension(min, min)
-        val highStroke = max(progressBarWidth,backgroundProgressBarWidth)
+        val highStroke = max(progressBarWidth, backgroundProgressBarWidth)
         rectF.set(0 + highStroke / 2, 0 + highStroke / 2, min - highStroke / 2, min - highStroke / 2)
     }
     //endregion
