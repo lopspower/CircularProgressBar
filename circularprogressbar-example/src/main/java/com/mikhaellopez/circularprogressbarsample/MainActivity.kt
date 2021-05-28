@@ -8,7 +8,6 @@ import androidx.appcompat.widget.SwitchCompat
 import com.larswerkman.lobsterpicker.OnColorListener
 import com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -17,28 +16,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val circularProgressBar = findViewById<CircularProgressBar>(R.id.circularProgressBar)
+
         // Set Init progress with animation
         circularProgressBar.setProgressWithAnimation(65f, 1000) // =1s
 
         // Update circularProgressBar
-        seekBarProgress.onProgressChanged { circularProgressBar.progress = it }
-        seekBarStartAngle.onProgressChanged { circularProgressBar.startAngle = it }
-        seekBarStrokeWidth.onProgressChanged { circularProgressBar.progressBarWidth = it }
-        seekBarBackgroundStrokeWidth.onProgressChanged { circularProgressBar.backgroundProgressBarWidth = it }
-        shadeSlider.onColorChanged {
+        findViewById<SeekBar>(R.id.seekBarProgress).onProgressChanged {
+            circularProgressBar.progress = it
+        }
+        findViewById<SeekBar>(R.id.seekBarStartAngle).onProgressChanged {
+            circularProgressBar.startAngle = it
+        }
+        findViewById<SeekBar>(R.id.seekBarStrokeWidth).onProgressChanged {
+            circularProgressBar.progressBarWidth = it
+        }
+        findViewById<SeekBar>(R.id.seekBarBackgroundStrokeWidth).onProgressChanged {
+            circularProgressBar.backgroundProgressBarWidth = it
+        }
+        findViewById<LobsterShadeSlider>(R.id.shadeSlider).onColorChanged {
             circularProgressBar.progressBarColor = it
             circularProgressBar.backgroundProgressBarColor = adjustAlpha(it, 0.3f)
         }
-        switchRoundBorder.onCheckedChange { circularProgressBar.roundBorder = it }
-        switchProgressDirection.onCheckedChange {
+        findViewById<SwitchCompat>(R.id.switchRoundBorder).onCheckedChange {
+            circularProgressBar.roundBorder = it
+        }
+        findViewById<SwitchCompat>(R.id.switchProgressDirection).onCheckedChange {
             circularProgressBar.progressDirection =
-                    if (it) CircularProgressBar.ProgressDirection.TO_RIGHT
-                    else CircularProgressBar.ProgressDirection.TO_LEFT
+                if (it) CircularProgressBar.ProgressDirection.TO_RIGHT
+                else CircularProgressBar.ProgressDirection.TO_LEFT
         }
 
         // Indeterminate Mode
+        val switchIndeterminateMode = findViewById<SwitchCompat>(R.id.switchIndeterminateMode)
         switchIndeterminateMode.onCheckedChange { circularProgressBar.indeterminateMode = it }
-        circularProgressBar.onIndeterminateModeChangeListener = { switchIndeterminateMode.isChecked = it }
+        circularProgressBar.onIndeterminateModeChangeListener =
+            { switchIndeterminateMode.isChecked = it }
     }
 
     //region Extensions

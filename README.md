@@ -7,7 +7,7 @@ CircularProgressBar
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularprogressbar/images/download.svg?version=3.0.3)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularprogressbar/3.0.3/link)
+[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularprogressbar.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.mikhaellopez/circularprogressbar)
 <br>
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1f1cf02d760848af8c6b63e7bb0a1db8)](https://app.codacy.com/app/lopspower/CircularProgressBar?utm_source=github.com&utm_medium=referral&utm_content=lopspower/CircularProgressBar&utm_campaign=Badge_Grade_Dashboard)
@@ -24,7 +24,7 @@ USAGE
 To make a circular ProgressBar add CircularProgressBar in your layout XML and add CircularProgressBar library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
+implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
 ```
 
 XML
