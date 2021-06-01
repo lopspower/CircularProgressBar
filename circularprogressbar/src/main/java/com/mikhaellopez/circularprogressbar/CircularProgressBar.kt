@@ -309,10 +309,11 @@ class CircularProgressBar(context: Context, attrs: AttributeSet? = null) : View(
      * @param startDelay [Long] optional, null by default.
      */
     @JvmOverloads
-    fun setProgressWithAnimation(progress: Float,
+    fun setProgressWithAnimation(rawProgress: Float,
                                  duration: Long? = null,
                                  interpolator: TimeInterpolator? = null,
                                  startDelay: Long? = null) {
+        val progress = if (progressDirection.isToRight()) rawProgress * -1 else rawProgress
         progressAnimator?.cancel()
         progressAnimator = ValueAnimator.ofFloat(if (indeterminateMode) progressIndeterminateMode else this.progress, progress)
         duration?.also { progressAnimator?.duration = it }
