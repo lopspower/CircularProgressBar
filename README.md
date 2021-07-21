@@ -8,9 +8,7 @@ CircularProgressBar
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularprogressbar.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.mikhaellopez/circularprogressbar)
-<br>
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1f1cf02d760848af8c6b63e7bb0a1db8)](https://app.codacy.com/app/lopspower/CircularProgressBar?utm_source=github.com&utm_medium=referral&utm_content=lopspower/CircularProgressBar&utm_campaign=Badge_Grade_Dashboard)
 
 This is an Android project allowing to realize a circular ProgressBar in the simplest way possible.
 
