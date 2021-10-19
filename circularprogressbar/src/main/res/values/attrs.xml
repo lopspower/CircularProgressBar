@@ -11,6 +11,8 @@
             <flag name="right_to_left" value="2" />
             <flag name="top_to_bottom" value="3" />
             <flag name="bottom_to_top" value="4" />
+            <flag name="center_to_horizontal" value="5" />
+            <flag name="center_to_vertical" value="6" />
         </attr>
         <attr name="cpb_background_progressbar_color" format="color" />
         <attr name="cpb_background_progressbar_color_start" format="color" />
@@ -20,6 +22,8 @@
             <flag name="right_to_left" value="2" />
             <flag name="top_to_bottom" value="3" />
             <flag name="bottom_to_top" value="4" />
+            <flag name="center_to_horizontal" value="5" />
+            <flag name="center_to_vertical" value="6" />
         </attr>
         <attr name="cpb_progressbar_width" format="dimension" />
         <attr name="cpb_background_progressbar_width" format="dimension" />

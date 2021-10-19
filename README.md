@@ -51,12 +51,12 @@ You must use the following properties in your XML to change your CircularProgres
 | `app:cpb_progressbar_color`                      | color                                                        | BLACK                 |
 | `app:cpb_progressbar_color_start`                | color                                                        | cpb_progressbar_color |
 | `app:cpb_progressbar_color_end`                  | color                                                        | cpb_progressbar_color |
-| `app:cpb_progressbar_color_direction`            | left_to_right, right_to_left, top_to_bottom or bottom_to_top | left_to_right         |
+| `app:cpb_progressbar_color_direction`            | left_to_right, right_to_left, top_to_bottom, bottom_to_top, center_to_horizontal or center_to_vertical | left_to_right         |
 | `app:cpb_progressbar_width`                      | dimension                                                    | 7dp                   |
 | `app:cpb_background_progressbar_color`           | color                                                        | GRAY                  |
 | `app:cpb_background_progressbar_color_start`     | color                                                        | GRAY                  |
 | `app:cpb_background_progressbar_color_end`       | color                                                        | GRAY                  |
-| `app:cpb_background_progressbar_color_direction` | left_to_right, right_to_left, top_to_bottom or bottom_to_top | left_to_right         |
+| `app:cpb_background_progressbar_color_direction` |  left_to_right, right_to_left, top_to_bottom, bottom_to_top, center_to_horizontal or center_to_vertical          |
 | `app:cpb_background_progressbar_width`           | dimension                                                    | 3dp                   |
 | `app:cpb_round_border`                           | boolean                                                      | false                 |
 | `app:cpb_start_angle`                            | float                                                        | 0f (=top)             |

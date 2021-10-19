@@ -19,11 +19,18 @@
             android:id="@+id/circularProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cpb_background_progressbar_color="#b6bbd8"
-            app:cpb_background_progressbar_width="10dp"
-            app:cpb_progress_direction="to_right"
-            app:cpb_progressbar_color="#3f51b5"
-            app:cpb_progressbar_width="20dp" />
+            app:cpb_background_progressbar_color_direction="center_to_vertical"
+            app:cpb_background_progressbar_color_end="#A0A8C3"
+            app:cpb_background_progressbar_color_start="#C0C6DF"
+            app:cpb_background_progressbar_width="15dp"
+            app:cpb_progress="100"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progress_max="100"
+            app:cpb_progressbar_color_direction="center_to_horizontal"
+            app:cpb_progressbar_color_end="#6977C3"
+            app:cpb_progressbar_color_start="#030823"
+            app:cpb_progressbar_width="20dp"
+            app:cpb_round_border="true" />
 
     </LinearLayout>
 
