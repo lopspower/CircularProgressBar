@@ -1,7 +1,17 @@
+
+> Support gradient direction from center to side by Michael Lee. `app:cpb_progressbar_color_direction` and `app:cpb_background_progressbar_color_direction` support `center_to_horizontal` or `center_to_vertical`
+> Now, change the implementation to jitpack.io to use that. The release version is right here at the badge.
+>[![](https://jitpack.io/v/michaellee123/CircularProgressBar.svg)](https://jitpack.io/#michaellee123/CircularProgressBar)
+>After this line, is the original document.Thanks to [Lopez Mikhael](https://github.com/lopspower).
+
+---
+
 <p align="center"><img src="/preview/header.png"></p>
 
 CircularProgressBar
 =================
+
+
 
 <img src="/preview/preview.gif" alt="sample" title="sample" width="300" height="480" align="right" vspace="24" />
 
