@@ -1,6 +1,6 @@
 <resources>
     <declare-styleable name="CircularProgressBar">
-        <attr name="cpb_progress" format="integer" />
+        <attr name="cpb_progress" format="float" />
         <attr name="cpb_progress_max" format="integer" />
         <attr name="cpb_indeterminate_mode" format="boolean" />
         <attr name="cpb_progressbar_color" format="color" />
